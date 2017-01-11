@@ -4,11 +4,11 @@
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
     <title>Why I still don't like EPUB</title>
     <style>
-body {
-  font-family: "Arial", "Helvetica", "sans-serif";
-}
-
-</style> </head>
+      body {
+        font-family: "Arial", "Helvetica", "sans-serif";
+			}
+		</style>
+  </head>
   <body>
     <p>Long looooong ago, I wrote a <a href="http://www.glazman.org/weblog/dotclear/index.php?post/2003/04/14/2880-untitled">deep
         review of the XHTML 2.0 spec</a> that was one of the elements that led
@@ -38,32 +38,33 @@ body {
         and experimented far more than alternatives between <code>text/html</code>
         and <code>text/plain</code> only. I am under the impression multiple
         renditions start from the same good will but fail to meet the goals for
-        various reasons:</li>
-      <ol>
-        <li>each additional rendition drastically increases the size of the
-          publication...</li>
-        <li>most authoring systems, filters and converters on the market don't
-          deal very well with multiple renditions</li>
-        <li>EPUB 2 defined the default rendition as the first rendition with a <code>application/oebps-package+xml</code>&nbsp;
-mimetype
-          while the EPUB 3 family of specs defines it as the first rendition in
-          the container</li>
-        <li>while a MIME-compliant Mail User Agent will let you compose a
-          message in <code>text/html</code> and output for you the <code>multipart/alternative</code>
-          between that <code>text/html</code> and its <code>text/plain</code>
-          serialization, each Publication rendition must be edited separately.</li>
-        <li>in the case of multiple renditions, each rendition has its own
-          metadata and it's then legitimate to think the publication needs its
-          own metadata too. But the <code>META-INF/metadata.xml</code> file has
-          always been quoted as "<em>This version of the OCF specification does
-            not define metadata for use in the metadata.xml file.
-            Container-level metadata may be defined in future versions of this
-            specification and in IDPF-defined EPUB extension specifications.</em>"
-          by all EPUB specifications. The <code>META-INF/metadata.xml</code>
-          should be dropped.</li>
-        <li>encryption, rights and signatures are per-publication resources
-          while they should be per-rendition resources.</li>
-      </ol>
+        various reasons:
+        <ol>
+          <li>each additional rendition drastically increases the size of the
+            publication...</li>
+          <li>most authoring systems, filters and converters on the market don't
+            deal very well with multiple renditions</li>
+          <li>EPUB 2 defined the default rendition as the first rendition with a
+            <code>application/oebps-package+xml</code>&nbsp; mimetype while the
+            EPUB 3 family of specs defines it as the first rendition in the
+            container</li>
+          <li>while a MIME-compliant Mail User Agent will let you compose a
+            message in <code>text/html</code> and output for you the <code>multipart/alternative</code>
+            between that <code>text/html</code> and its <code>text/plain</code>
+            serialization, each Publication rendition must be edited separately.</li>
+          <li>in the case of multiple renditions, each rendition has its own
+            metadata and it's then legitimate to think the publication needs its
+            own metadata too. But the <code>META-INF/metadata.xml</code> file
+            has always been quoted as "<em>This version of the OCF specification
+              does not define metadata for use in the metadata.xml file.
+              Container-level metadata may be defined in future versions of this
+              specification and in IDPF-defined EPUB extension specifications.</em>"
+            by all EPUB specifications. The <code>META-INF/metadata.xml</code>
+            should be dropped.</li>
+          <li>encryption, rights and signatures are per-publication resources
+            while they should be per-rendition resources.</li>
+        </ol>
+      </li>
       <li>the <code>full-path</code> attribute on <code>rootfile</code>
         elements is the only path in a publication that is relative to the
         publication's directory. All other URIs (for instance in <code>href</code>
@@ -154,7 +155,7 @@ mimetype
         elements having a special <code>epub:type</code>/<code>role</code> (see
         <a href="https://github.com/IDPF/epub-revision/issues/941">issue #941</a>),
         that's easy to make it contain an equivalent to the spine or more.</li>
-      <li><br>
+      <li> <br>
       </li>
     </ol>
     <h2>Content Documents</h2>
@@ -174,7 +175,8 @@ mimetype
     </ol>
     <h2><em>On the fly</em> conclusions</h2>
     <ol>
-      <li>backwards compatibility is an enormous burden on the EPUB ecosystem</li>
+      <li>backwards compatibility is an enormous burden on the EPUB
+        ecosystem</li>
       <li>build a new generation of EPUB that is not backwards-compatible</li>
       <li>the <code>mimetype</code> file is useless</li>
       <li>file extension of the publication MUST be <code>epub</code></li>
@@ -182,8 +184,7 @@ mimetype
         elements</li>
       <li>in that case, we don't need the <code>container.xml</code> file any
         more</li>
-      <li><code>metadata.xml</code> and <code>manifest.xml</code> files
-        removed</li>
+      <li><code>metadata.xml</code> and <code>manifest.xml</code> files removed</li>
       <li>we may still need <code>encryption.xml,</code> <code>signatures.xml</code>
         and <code>rights.xml </code>inside a META-INF directory (or directly
         in the package's root after all) to please the industry.</li>
