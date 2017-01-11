@@ -4,22 +4,24 @@
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
     <title>Why I still don't like EPUB</title>
   </head>
-  <body>Long looooong ago, I wrote a <a href="http://www.glazman.org/weblog/dotclear/index.php?post/2003/04/14/2880-untitled">deep
-      review of the XHTML 2.0 spec</a> that was one of the elements that led the
-    HTML activity restarting at the W3C and the final dismissal of XHTML 2.0. <a
-      href="http://www.walrus-books.com/livre-numerique-ce-que-nous-avons-rate-pourquoi-nous-lavons-rate-et-comment-nous-allons-changer-les-choses/">It's
-      time</a> (fr-FR) to do the same thing for the EPUB specs and draw some
-    conclusions.<br>
-    <h2> OCF 3.1</h2>
+  <body>
+    <p>Long looooong ago, I wrote a <a href="http://www.glazman.org/weblog/dotclear/index.php?post/2003/04/14/2880-untitled">deep
+        review of the XHTML 2.0 spec</a> that was one of the elements that led
+      the HTML activity restarting at the W3C and the final dismissal of XHTML
+      2.0. <a href="http://www.walrus-books.com/livre-numerique-ce-que-nous-avons-rate-pourquoi-nous-lavons-rate-et-comment-nous-allons-changer-les-choses/">It's
+        time</a> (fr-FR) to do the same thing for the EPUB specs and draw some
+      conclusions.</p>
+    <p>Daniel Glazman</p>
+    <h2>OCF 3.1</h2>
     <ol>
       <li>EPUB publications are not "just a zip". They are zips with special
         constraints. I question the "<em><code>mimetype</code> file in first
           uncompressed position</em>" constraint since I think the vast majority
         of reading systems don't care (and can't care) because most of the
         people creating EPUB at least partially by hand don't know/care. The
-        three last contraints (zip container fields) on the ZIP package described
-        in section 4.2 of the spec are usually not implemented by Reading
-        Systems.</li>
+        three last contraints (zip container fields) on the ZIP package
+        described in section 4.2 of the spec are usually not implemented by
+        Reading Systems.</li>
       <li>the <code>container </code>element of the <code>META-INF/container.xml</code>
         file has a <code>version</code> attribute that is always "<code>1.0</code>",
         whatever the EPUB version. That forces editors, filters and reading
