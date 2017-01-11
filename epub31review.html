@@ -4,9 +4,11 @@
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
     <title>Why I still don't like EPUB</title>
     <style>
-      body:nth-child(2n+1) { color: red }
-    </style>
-  </head>
+body {
+  font-family: "Arial", "Helvetica", "sans-serif";
+}
+
+</style> </head>
   <body>
     <p>Long looooong ago, I wrote a <a href="http://www.glazman.org/weblog/dotclear/index.php?post/2003/04/14/2880-untitled">deep
         review of the XHTML 2.0 spec</a> that was one of the elements that led
@@ -148,10 +150,10 @@ mimetype
         Where is <code>paginated-doc</code>, the simplest paginated mode to
         implement?</li>
       <li>no more NCX, finally...</li>
-      <li>the Navigation Document is already a html document with nav elements
-        having a special epub:type/role (see <a href="https://github.com/IDPF/epub-revision/issues/941">issue
-          #941</a>), that's easy to make it contain an equivalent to the spine
-        or more.</li>
+      <li>the Navigation Document is already a html document with <code>nav</code>
+        elements having a special <code>epub:type</code>/<code>role</code> (see
+        <a href="https://github.com/IDPF/epub-revision/issues/941">issue #941</a>),
+        that's easy to make it contain an equivalent to the spine or more.</li>
       <li><br>
       </li>
     </ol>
@@ -180,7 +182,11 @@ mimetype
         elements</li>
       <li>in that case, we don't need the <code>container.xml</code> file any
         more</li>
-      <li><code>metadata.xml</code> and <code>manifest.xml</code> files removed</li>
+      <li><code>metadata.xml</code> and <code>manifest.xml</code> files
+        removed</li>
+      <li>we may still need <code>encryption.xml,</code> <code>signatures.xml</code>
+        and <code>rights.xml </code>inside a META-INF directory (or directly
+        in the package's root after all) to please the industry.</li>
       <li><code>application/oebps-package+xml</code> mimetype still needed</li>
       <li>the EPUB spec evolution model is/was "we must deal with all cases in
         the world, we move very fast and we fix the mistakes afterwards". I
