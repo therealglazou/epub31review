@@ -1,2 +1,100 @@
-<!DOCTYPE html><html>  <head>    <meta content="text/html; charset=UTF-8" http-equiv="content-type">    <title>Why I still don't like EPUB</title>  </head>  <body>Long looooong ago, I wrote a <a href="http://www.glazman.org/weblog/dotclear/index.php?post/2003/04/14/2880-untitled">deep      review of the XHTML 2.0 spec</a> that was one of the elements that led the    HTML activity restarting at the W3C and the final dismissal of XHTML 2.0. <a      href="http://www.walrus-books.com/livre-numerique-ce-que-nous-avons-rate-pourquoi-nous-lavons-rate-et-comment-nous-allons-changer-les-choses/">It's      time</a> (fr-FR) to do the same thing for the EPUB specs and draw some    conclusions.<br>    <h2> OCF 3.1</h2>    <ol>      <li>EPUB publications are not "just a zip". They are zips with special        constraints. I question the "<em><code>mimetype</code> file in first          uncompressed position</em>" constraint since I think the vast majority        of reading systems don't care (and can't care) because most of the        people creating EPUB at least partially by hand don't know/care. The        three last contraints (zip container fields) on the ZIP package described        in section 4.2 of the spec are usually not implemented by Reading        Systems.</li>      <li>the <code>container </code>element of the <code>META-INF/container.xml</code>        file has a <code>version</code> attribute that is always "<code>1.0</code>",        whatever the EPUB version. That forces editors, filters and reading        systems to dive into the default rendition to know the EPUB version and        that's clearly one useless expensive step too much.</li>      <li>having multiple renditions per publication reminds me of MIME <code>multipart/alternative</code>.        When Borenstein and Freed added it to the draft of RFC 1341 some 25        years ago, Mail User Agents developers (your truly counted) envisioned        and experimented far more than alternatives between <code>text/html</code>        and <code>text/plain</code> only. I am under the impression multiple        renditions start from the same good will but fail to meet the goals for        various reasons:</li>      <ol>        <li>each additional rendition drastically increases the size of the          publication...</li>        <li>most authoring systems, filters and converters on the market don't          deal very well with multiple renditions</li>        <li>EPUB 2 defined the default rendition as the first rendition with a <code>application/oebps-package+xml</code>&nbsp;
-mimetype          while the EPUB 3 family of specs defines it as the first rendition in          the container</li>        <li>while a MIME-compliant Mail User Agent will let you compose a          message in <code>text/html</code> and output for you the <code>multipart/alternative</code>          between that <code>text/html</code> and its <code>text/plain</code>          serialization, each Publication rendition must be edited separately.</li>        <li>in the case of multiple renditions, each rendition has its own          metadata and it's then legitimate to think the publication needs its          own metadata too. But the <code>META-INF/metadata.xml</code> file has          always been quoted as "<em>This version of the OCF specification does            not define metadata for use in the metadata.xml file.            Container-level metadata may be defined in future versions of this            specification and in IDPF-defined EPUB extension specifications.</em>"          by all EPUB specifications. The <code>META-INF/metadata.xml</code>          should be dropped.</li>        <li>encryption, rights and signatures are per-publication resources          while they should be per-rendition resources.</li>      </ol>      <li>the <code>full-path</code> attribute on <code>rootfile</code>        elements is the only path in a publication that is relative to the        publication's directory. All other URIs (for instance in <code>href</code>        attributes) are relative to the current document instance. I think <code>full-path</code>        should be deprecated in favor of <code>href</code> here, and finally        superseded by <code>href</code> for the next major version of EPUB.</li>      <li>we don't need the <code>mimetype</code> attribute on <code>rootfile</code>        elements since the prose of EPUB 3.1 says the target of a rootfile must        be a Package Document, i.e. an OPF file... If EPUB 2 OCF could directly        target for instance a PDF file, it's not the case any more for OCF 3.</li>      <li>absolute URIs (for instance <code>/files/xhtml/index.html</code> with        a leading slash, cf. <code>path-absolute</code> construct in RFC 3986)        are harmful to EPUB+Web convergence</li>      <li>if multiple renditions are dropped, the <code>META-INF/container.xml</code>        file becomes useless and it can be dropped.</li>      <li>the prose for the <code>META-INF/manifest.xml</code> makes me wonder        why this still exists: "does not mandate a format", "MUST NOT be used".        Don't even mention it! Just say that extra unspecified files inside <code>META-INF</code>        directory must be ignored (Cf. OCF section 3.5.1) , and possibly reserve        the <code>metadata.xml</code> file name, period. Oh, and a ZIP is also        a manifest of files...</li>      <li>I am not an expert of encryption, signatures, XML-ENC Core or XML DSIG        Core, so I won't discuss <code>encryption.xml</code> and <code>signatures.xml</code>        files</li>      <li>the <code>rights.xml</code> file still has no specified format.        Strange. Cf. item 8 above.</li>      <li>Resource obfuscation is so weak and useless it's hilarious. Drop it.        It also painful in EPUB+Web convergence.</li>      <li>RNG schemas are not enough in the OCF spec. Section 3.5.2.1 about <code>container.xml</code>        file for instance shouls have models and attribute lists for each        element, similarly to the Packages spec.</li>      <li>not sure I have ever seen <code>links</code> and <code>link</code>        elements in a <code>container.xml</code> file... (Cf. <a href="https://github.com/idpf/epub-revision/issues/374">issue          #374</a>). The way these links are processed is unspecified anyway.        Why are these elements normatively specified since extra elements are        allowed - and explicitely ignored by spec - in the container?</li>      <li><br>      </li>    </ol>  </body></html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Why I still don't like EPUB</title>
+  </head>
+  <body>Long looooong ago, I wrote a <a href="http://www.glazman.org/weblog/dotclear/index.php?post/2003/04/14/2880-untitled">deep
+      review of the XHTML 2.0 spec</a> that was one of the elements that led the
+    HTML activity restarting at the W3C and the final dismissal of XHTML 2.0. <a
+      href="http://www.walrus-books.com/livre-numerique-ce-que-nous-avons-rate-pourquoi-nous-lavons-rate-et-comment-nous-allons-changer-les-choses/">It's
+      time</a> (fr-FR) to do the same thing for the EPUB specs and draw some
+    conclusions.<br>
+    <h2> OCF 3.1</h2>
+    <ol>
+      <li>EPUB publications are not "just a zip". They are zips with special
+        constraints. I question the "<em><code>mimetype</code> file in first
+          uncompressed position</em>" constraint since I think the vast majority
+        of reading systems don't care (and can't care) because most of the
+        people creating EPUB at least partially by hand don't know/care. The
+        three last contraints (zip container fields) on the ZIP package described
+        in section 4.2 of the spec are usually not implemented by Reading
+        Systems.</li>
+      <li>the <code>container </code>element of the <code>META-INF/container.xml</code>
+        file has a <code>version</code> attribute that is always "<code>1.0</code>",
+        whatever the EPUB version. That forces editors, filters and reading
+        systems to dive into the default rendition to know the EPUB version and
+        that's clearly one useless expensive step too much.</li>
+      <li>having multiple renditions per publication reminds me of MIME <code>multipart/alternative</code>.
+        When Borenstein and Freed added it to the draft of RFC 1341 some 25
+        years ago, Mail User Agents developers (your truly counted) envisioned
+        and experimented far more than alternatives between <code>text/html</code>
+        and <code>text/plain</code> only. I am under the impression multiple
+        renditions start from the same good will but fail to meet the goals for
+        various reasons:</li>
+      <ol>
+        <li>each additional rendition drastically increases the size of the
+          publication...</li>
+        <li>most authoring systems, filters and converters on the market don't
+          deal very well with multiple renditions</li>
+        <li>EPUB 2 defined the default rendition as the first rendition with a <code>application/oebps-package+xml</code>&nbsp;
+mimetype
+          while the EPUB 3 family of specs defines it as the first rendition in
+          the container</li>
+        <li>while a MIME-compliant Mail User Agent will let you compose a
+          message in <code>text/html</code> and output for you the <code>multipart/alternative</code>
+          between that <code>text/html</code> and its <code>text/plain</code>
+          serialization, each Publication rendition must be edited separately.</li>
+        <li>in the case of multiple renditions, each rendition has its own
+          metadata and it's then legitimate to think the publication needs its
+          own metadata too. But the <code>META-INF/metadata.xml</code> file has
+          always been quoted as "<em>This version of the OCF specification does
+            not define metadata for use in the metadata.xml file.
+            Container-level metadata may be defined in future versions of this
+            specification and in IDPF-defined EPUB extension specifications.</em>"
+          by all EPUB specifications. The <code>META-INF/metadata.xml</code>
+          should be dropped.</li>
+        <li>encryption, rights and signatures are per-publication resources
+          while they should be per-rendition resources.</li>
+      </ol>
+      <li>the <code>full-path</code> attribute on <code>rootfile</code>
+        elements is the only path in a publication that is relative to the
+        publication's directory. All other URIs (for instance in <code>href</code>
+        attributes) are relative to the current document instance. I think <code>full-path</code>
+        should be deprecated in favor of <code>href</code> here, and finally
+        superseded by <code>href</code> for the next major version of EPUB.</li>
+      <li>we don't need the <code>mimetype</code> attribute on <code>rootfile</code>
+        elements since the prose of EPUB 3.1 says the target of a rootfile must
+        be a Package Document, i.e. an OPF file... If EPUB 2 OCF could directly
+        target for instance a PDF file, it's not the case any more for OCF 3.</li>
+      <li>absolute URIs (for instance <code>/files/xhtml/index.html</code> with
+        a leading slash, cf. <code>path-absolute</code> construct in RFC 3986)
+        are harmful to EPUB+Web convergence</li>
+      <li>if multiple renditions are dropped, the <code>META-INF/container.xml</code>
+        file becomes useless and it can be dropped.</li>
+      <li>the prose for the <code>META-INF/manifest.xml</code> makes me wonder
+        why this still exists: "does not mandate a format", "MUST NOT be used".
+        Don't even mention it! Just say that extra unspecified files inside <code>META-INF</code>
+        directory must be ignored (Cf. OCF section 3.5.1) , and possibly reserve
+        the <code>metadata.xml</code> file name, period. Oh, and a ZIP is also
+        a manifest of files...</li>
+      <li>I am not an expert of encryption, signatures, XML-ENC Core or XML DSIG
+        Core, so I won't discuss <code>encryption.xml</code> and <code>signatures.xml</code>
+        files</li>
+      <li>the <code>rights.xml</code> file still has no specified format.
+        Strange. Cf. item 8 above.</li>
+      <li>Resource obfuscation is so weak and useless it's hilarious. Drop it.
+        It also painful in EPUB+Web convergence.</li>
+      <li>RNG schemas are not enough in the OCF spec. Section 3.5.2.1 about <code>container.xml</code>
+        file for instance shouls have models and attribute lists for each
+        element, similarly to the Packages spec.</li>
+      <li>not sure I have ever seen <code>links</code> and <code>link</code>
+        elements in a <code>container.xml</code> file... (Cf. <a href="https://github.com/idpf/epub-revision/issues/374">issue
+          #374</a>). The way these links are processed is unspecified anyway.
+        Why are these elements normatively specified since extra elements are
+        allowed - and explicitely ignored by spec - in the container?</li>
+      <li><br>
+      </li>
+    </ol>
+  </body>
+</html>
