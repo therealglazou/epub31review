@@ -3,6 +3,9 @@
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
     <title>Why I still don't like EPUB</title>
+    <style>
+      body:nth-child(2n+1) { color: red }
+    </style>
   </head>
   <body>
     <p>Long looooong ago, I wrote a <a href="http://www.glazman.org/weblog/dotclear/index.php?post/2003/04/14/2880-untitled">deep
@@ -105,10 +108,13 @@ mimetype
       <li>fallbacks are an inner mechanism also similar to multipart/alternative
         for renditions. I would drop it.</li>
       <li>I think the whole package should have properties identifying the
-        required technology for the rendition of the Package (e.g. script)</li>
-      <li>the spine element represent the default reading order of the package.
-        Basically, it's a list. We have lists in html, don't we? Why do we need
-        a painful and complex proprietary xml format here?</li>
+        required technologies for the rendition of the Package (e.g. script),
+        and avoid these properties on a per-item basis that makes no real sense.
+        The feature is either present in the UA for all content documents or for
+        none.</li>
+      <li>the <code>spine</code> element represent the default reading order of
+        the package. Basically, it's a list. We have lists in html, don't we?
+        Why do we need a painful and complex proprietary xml format here?</li>
       <li>the name of the <code>linear</code> attribute, that discriminates
         between primary and supplementary content, is extremely badly chosen. I
         always forget what really is <code>linear</code> because of that.</li>
@@ -119,9 +125,9 @@ mimetype
         not <code>itemref</code> elements</li>
       <li>metadata fun, as always with every EPUB spec. Implementing <code>refines</code>
         in 3.0 was a bit of a hell (despite warnings to the EPUB WG...), and
-        it's gone from 3.1, replaced by new attributes. So no forwards compatbility,
-        no backwards compatibility. Yet another parser and serializer for
-        EPUB-compliant user agents.</li>
+        it's gone from 3.1, replaced by new attributes. So no forwards
+        compatbility, no backwards compatibility. Yet another parser and
+        serializer for EPUB-compliant user agents.</li>
       <li>the old OPF <code>guide</code> element is now a html <code>landmarks</code>
         list, proving it's feasible to move OPF features to html</li>
       <li>the Navigation Document, an html document, is mandatory... So all the
@@ -129,16 +135,32 @@ mimetype
       <li><em>Fixed Layout delenda est</em>. Let's use CSS Fragmentation to make
         sure there's no orphaned content in the document post-pagination, and if
         CSS Fragmentation is not enough, make extension contributions to the CSS
-        WG</li>
+        WG.</li>
+      <li>without 3.0 <code>refines</code>, there is absolutely nothing any
+        more in 3.1 preventing Package's metadata to be expressed in html; in
+        3.0, the <code>refines</code> attribute was a blocker, implying an
+        extension of the model of the <code>meta</code> html element or another
+        ugly IDREF mechanism in html.</li>
+      <li>the <code>prefix</code> attribute on the package element is a good
+        thing and should be preserved</li>
+      <li>the <code>rendition-flow</code> property is weird, its values being <code>paginated</code>,
+        <code>scrolled-continuous</code>, <code>scrolled-doc</code> and <code>auto</code>.
+        Where is <code>paginated-doc</code>, the simplest paginated mode to
+        implement?</li>
+      <li>no more NCX, finally...</li>
+      <li>the Navigation Document is already a html document with nav elements
+        having a special epub:type/role (see <a href="https://github.com/IDPF/epub-revision/issues/941">issue
+          #941</a>), that's easy to make it contain an equivalent to the spine
+        or more.</li>
       <li><br>
       </li>
     </ol>
     <h2>Content Documents</h2>
     <h2>Media Overlays</h2>
     <ol>
-      <li>SMIL support across rendering engines is in very bad shape and the SMIL
-        polyfill does not totally help. Drop Media Overlays for the time being
-        and let's focus on visual content.</li>
+      <li>SMIL support across rendering engines is in very bad shape and the
+        SMIL polyfill does not totally help. Drop Media Overlays for the time
+        being and let's focus on visual content.</li>
     </ol>
     <h2>Accessibility</h2>
     <h2>Alternate Style Tags</h2>
@@ -164,13 +186,22 @@ mimetype
         the world, we move very fast and we fix the mistakes afterwards". I
         respectfully suggest a drastic change for EPUB 4: "let's start from a
         low-level common ground only and expand slowly but cleanly"</li>
-      <li><br>
-      </li>
-      <li>Alternate Style Tags spec dropped. Submission of new Media Queries to
-        CSS WG if needed.</li>
-      <li>Media Overlays spec dropped.</li>
-    </ol>
-    <ol>
+      <li>the OPF file is not needed any more. The root of the unique rendition
+        in a package should be the html Navigation Document.</li>
+      <li>the metadata of the package should be <code>title</code>, <code>meta</code>
+        and <code>link</code> elements inside the <code>head</code> element of
+        the Navigation Document</li>
+      <li>the spine of the package can be a list of <code>link</code> elements
+        inside the <code>head</code> element of the Navigation Document or, if
+        the spine needs to be presented through html rendering, a new <code>nav</code>
+        element inside the <code>body</code> of the Navigation Document</li>
+      <li>intermediary summary: let's get rid of both <code>META-INF/container.xml</code>
+        and the OPF file... Let's have the Navigation Document mandatorily named
+        <code>index.xhtml</code> so a directory browsing of the uncompressed
+        publication through http will render the Navigation Document.</li>
+      <li>let's drop the Alternate Style Tags spec for now. Submission of new
+        Media Queries to CSS WG if needed.</li>
+      <li>let's drop Media Overlays spec for now.</li>
     </ol>
   </body>
 </html>
