@@ -7,8 +7,8 @@
   <body>
     <p>Long looooong ago, I wrote a <a href="http://www.glazman.org/weblog/dotclear/index.php?post/2003/04/14/2880-untitled">deep
         review of the XHTML 2.0 spec</a> that was one of the elements that led
-      the HTML activity restarting at the W3C and the final dismissal of XHTML
-      2.0. <a href="http://www.walrus-books.com/livre-numerique-ce-que-nous-avons-rate-pourquoi-nous-lavons-rate-et-comment-nous-allons-changer-les-choses/">It's
+      to the resuming of the HTML activity at the W3C and the final dismissal of
+      XHTML 2.0. <a href="http://www.walrus-books.com/livre-numerique-ce-que-nous-avons-rate-pourquoi-nous-lavons-rate-et-comment-nous-allons-changer-les-choses/">It's
         time</a> (fr-FR) to do the same thing for the EPUB specs and draw some
       conclusions.</p>
     <p>Daniel Glazman</p>
@@ -86,7 +86,7 @@ mimetype
       <li>the <code>rights.xml</code> file still has no specified format.
         Strange. Cf. item 8 above.</li>
       <li>Resource obfuscation is so weak and useless it's hilarious. Drop it.
-        It also painful in EPUB+Web convergence.</li>
+        It is also painful in EPUB+Web convergence.</li>
       <li>RNG schemas are not enough in the OCF spec. Section 3.5.2.1 about <code>container.xml</code>
         file for instance shouls have models and attribute lists for each
         element, similarly to the Packages spec.</li>
@@ -95,8 +95,25 @@ mimetype
           #374</a>). The way these links are processed is unspecified anyway.
         Why are these elements normatively specified since extra elements are
         allowed - and explicitely ignored by spec - in the container?</li>
+    </ol>
+    <h2>My conclusions</h2>
+    <ol>
+      <li>backwards compatibility is an enormous burden on the EPUB ecosystem</li>
+      <li>get rif of the <code>mimetype</code> file</li>
+      <li>file extension of the publication MUST be <code>epub</code></li>
+      <li>one rendition only per publication and no more <code>links</code>/<code>link</code>
+        elements</li>
+      <li>no more <code>container.xml</code> file</li>
+      <li><code>metadata.xml</code> and <code>manifest.xml</code> files removed</li>
+      <li><code>application/oebps-package+xml</code> mimetype still needed</li>
+      <li>the EPUB spec evolution model is/was "we must deal with all cases in
+        the world, we move very fast and we fix the mistakes afterwards". I
+        respectfully suggest a drastic change for EPUB 4: "let's start from a
+        basic common ground only and expand slowly but cleanly"</li>
       <li><br>
       </li>
+    </ol>
+    <ol>
     </ol>
   </body>
 </html>
