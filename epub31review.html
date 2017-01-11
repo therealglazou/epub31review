@@ -97,6 +97,42 @@ mimetype
         allowed - and explicitely ignored by spec - in the container?</li>
     </ol>
     <h2>Packages</h2>
+    <ol>
+      <li>a Package consists of one rendition only.</li>
+      <li>I have never understood the need for a manifest of resources inside
+        the package, probably because my own publications don't use Media
+        Overlays or media fallbacks.</li>
+      <li>fallbacks are an inner mechanism also similar to multipart/alternative
+        for renditions. I would drop it.</li>
+      <li>I think the whole package should have properties identifying the
+        required technology for the rendition of the Package (e.g. script)</li>
+      <li>the spine element represent the default reading order of the package.
+        Basically, it's a list. We have lists in html, don't we? Why do we need
+        a painful and complex proprietary xml format here?</li>
+      <li>the name of the <code>linear</code> attribute, that discriminates
+        between primary and supplementary content, is extremely badly chosen. I
+        always forget what really is <code>linear</code> because of that.</li>
+      <li>Reading Systems are free, per spec, to completely ignore the <code>linear</code>
+        attribute, making it pointless from an author's point of view.</li>
+      <li>I have never seen the <code>collection</code> element used and I
+        don't really understand why it contains <code>link</code> elements and
+        not <code>itemref</code> elements</li>
+      <li>metadata fun, as always with every EPUB spec. Implementing <code>refines</code>
+        in 3.0 was a bit of a hell (despite warnings to the EPUB WG...), and
+        it's gone from 3.1, replaced by new attributes. So no forwards compatbility,
+        no backwards compatibility. Yet another parser and serializer for
+        EPUB-compliant user agents.</li>
+      <li>the old OPF <code>guide</code> element is now a html <code>landmarks</code>
+        list, proving it's feasible to move OPF features to html</li>
+      <li>the Navigation Document, an html document, is mandatory... So all the
+        logics mentioned above could be there.</li>
+      <li><em>Fixed Layout delenda est</em>. Let's use CSS Fragmentation to make
+        sure there's no orphaned content in the document post-pagination, and if
+        CSS Fragmentation is not enough, make extension contributions to the CSS
+        WG</li>
+      <li><br>
+      </li>
+    </ol>
     <h2>Content Documents</h2>
     <h2>Media Overlays</h2>
     <ol>
@@ -108,24 +144,26 @@ mimetype
     <h2>Alternate Style Tags</h2>
     <ol>
       <li>terrible spec... Needed because of Reading Systems' limitations but
-        still terrible spec.</li>
+        still tabsolutely errible spec...</li>
       <li>If we get rid of backwards compatibility, we can drop it. Submit
         extensions to Media Queries if needed.</li>
     </ol>
     <h2>My conclusions</h2>
     <ol>
       <li>backwards compatibility is an enormous burden on the EPUB ecosystem</li>
+      <li>build a new generation of EPUB that is not backwards-compatible</li>
       <li>the <code>mimetype</code> file is useless</li>
       <li>file extension of the publication MUST be <code>epub</code></li>
       <li>one rendition only per publication and no more <code>links</code>/<code>link</code>
         elements</li>
-      <li>no more <code>container.xml</code> file</li>
+      <li>in that case, we don't need the <code>container.xml</code> file any
+        more</li>
       <li><code>metadata.xml</code> and <code>manifest.xml</code> files removed</li>
       <li><code>application/oebps-package+xml</code> mimetype still needed</li>
       <li>the EPUB spec evolution model is/was "we must deal with all cases in
         the world, we move very fast and we fix the mistakes afterwards". I
         respectfully suggest a drastic change for EPUB 4: "let's start from a
-        basic common ground only and expand slowly but cleanly"</li>
+        low-level common ground only and expand slowly but cleanly"</li>
       <li>Alternate Style Tags spec dropped. Submission of new Media Queries to
         CSS WG if needed.</li>
       <li>Media Overlays spec dropped.</li>
