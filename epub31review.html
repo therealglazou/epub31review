@@ -12,7 +12,7 @@
         time</a> (fr-FR) to do the same thing for the EPUB specs and draw some
       conclusions.</p>
     <p>Daniel Glazman</p>
-    <h2>OCF 3.1</h2>
+    <h2>OCF</h2>
     <ol>
       <li>EPUB publications are not "just a zip". They are zips with special
         constraints. I question the "<em><code>mimetype</code> file in first
@@ -96,11 +96,16 @@ mimetype
         Why are these elements normatively specified since extra elements are
         allowed - and explicitely ignored by spec - in the container?</li>
     </ol>
-    <h2>Packages 3.1</h2>
-    <h2>Content Documents 3.1</h2>
-    <h2>Media Overlays 3.1</h2>
-    <h2>Accessibility 3.1</h2>
-    <h2>Alternate Style Tags 3.1</h2>
+    <h2>Packages</h2>
+    <h2>Content Documents</h2>
+    <h2>Media Overlays</h2>
+    <ol>
+      <li>SMIL support across rendering engines is in very bad shape and the
+        SMIl polyfill does not totally help. Drop Media Overlays for the time
+        being and let's focus on visual content.</li>
+    </ol>
+    <h2>Accessibility</h2>
+    <h2>Alternate Style Tags</h2>
     <ol>
       <li>terrible spec... Needed because of Reading Systems' limitations but
         still terrible spec.</li>
@@ -123,6 +128,7 @@ mimetype
         basic common ground only and expand slowly but cleanly"</li>
       <li>Alternate Style Tags spec dropped. Submission of new Media Queries to
         CSS WG if needed.</li>
+      <li>Media Overlays spec dropped.</li>
     </ol>
     <ol>
     </ol>
