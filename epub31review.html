@@ -3,11 +3,6 @@
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
     <title>Why I still don't like EPUB</title>
-    <style>
-      body {
-        font-family: "Arial", "Helvetica", "sans-serif";
-      }
-    </style>
   </head>
   <body>
     <p>Long looooong ago, I wrote a <a href="http://www.glazman.org/weblog/dotclear/index.php?post/2003/04/14/2880-untitled">deep
@@ -16,6 +11,8 @@
       XHTML 2.0. <a href="http://www.walrus-books.com/livre-numerique-ce-que-nous-avons-rate-pourquoi-nous-lavons-rate-et-comment-nous-allons-changer-les-choses/">It's
         time</a> (fr-FR) to do the same thing for the EPUB specs and draw some
       conclusions.</p>
+    <p>This document is <a href="https://github.com/therealglazou/epub31review">maintained
+        on GitHub</a> and accepting contributions.</p>
     <p>Daniel Glazman</p>
     <h2>OCF</h2>
     <ol>
@@ -157,13 +154,15 @@
         that's easy to make it contain an equivalent to the spine or more.</li>
     </ol>
     <h2>Content Documents</h2>
+    <ol>
+      <li>let's get rid of the epub namespace, please...</li>
+    </ol>
     <h2>Media Overlays</h2>
     <ol>
       <li>SMIL support across rendering engines is in very bad shape and the
         SMIL polyfill does not totally help. Drop Media Overlays for the time
         being and let's focus on visual content.</li>
     </ol>
-    <h2>Accessibility</h2>
     <h2>Alternate Style Tags</h2>
     <ol>
       <li>terrible spec... Needed because of Reading Systems' limitations but
@@ -237,36 +236,35 @@
       not restricted.</p>
     <h2>2. E0 Navigation Document</h2>
     <p>A E0 Navigation Document is a html document. Its file name MUST be <code>index.xhtml</code>
-      if the document is a XML document and <code>index.html</code> if it it
+      if the document is a XML document and <code>index.html</code> if it it is
       not a XML document. A E0 Publication cannot contain both <code>index.html</code>
       and <code>index.xhtml</code> files.</p>
     <p>A E0 Navigation Document contains at least one <code>header</code>
-      element (for metadata) and <code>nav</code> html elements in its <code>body</code>.</p>
+      element (for metadata) and at least two <code>nav</code> html elements
+      (for spine and table of contents) in its <code>body</code> element.</p>
     <h3>2.1. E0 Metadata in the Navigation Document</h3>
     <p>E0 metadata are designed to be editable in any Wysiwyg html editor, and
       potentially rendered as regular html content by any Web browser.</p>
     <p>E0 metadata are expressed inside a mandatory <code>header</code> html
       element inside the Navigation Document. That element must carry the "<code>metadata</code>"
-      ID and the <code>vocab</code> attribute with value "<code>http://purl.org/dc/elements/1.1/</code>".
+      ID and the <code>vocab</code> attribute with value "<code>http://www.idpf.org/2007/opf</code>".
       All metadata inside that <code>header</code> element are then expressed
-      using HTML5+RDFa Lite 1.1. E0 metadata reuse EPUB 3.1 metadata and
+      using html+RDFa Lite 1.1. E0 metadata reuse EPUB 3.1 metadata and
       corresponding unicity rules, expressed in a different way.</p>
     <p>Refinements of metadata are expressed through nesting of elements.</p>
     <p>Example:</p>
     <pre>&lt;header id="metadata"
-        vocab="http://purl.org/dc/elements/1.1/"
-        prefix="opf: http://www.idpf.org/2007/opf"&gt;
-  &lt;dl&gt;
-    &lt;dt&gt;Author:&lt;/dt&gt;
-    &lt;dd&gt;&lt;span property="creator"&gt;glazou (&lt;span property="opf:file-as"&gt;Glazman, Daniel&lt;/span&gt;)&lt;/span&gt;&lt;/dd&gt;
-    &lt;dt&gt;Title:&lt;/dt&gt;
-    &lt;dd property="title"&gt;E0 Publications&lt;/dd&gt;
-  &lt;/dl&gt;
-&lt;/header&gt;</pre>
+        vocab="http://www.idpf.org/2007/opf"&gt;<br>  &lt;h1&gt;Reading Order&lt;/h1&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Author:
+        &lt;span property="dc:creator"&gt;glazou<br>         (&lt;span property="file-as"&gt;Glazman, Daniel&lt;/span&gt;)&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;Title:
+        &lt;span property="dc:title"&gt;E0 Publications&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/header&gt;</pre><p>
     The mandatory <code>title</code> element of the Navigation Document,
     contained in its <code>head</code> element, should have the same text
-    contents than the first title metadata inside that header element.<br>
-    <h3>2.2. E0 Spine</h3>
+    contents than the first "dc:title" metadata inside that header element.</p><h3>2.2. E0 Spine</h3>
     <p>The spine of a E0 Publication is expressed in its Navigation Document as
       a new <code>nav</code> element holding the "spine" ID. The spine <code>nav</code>
       element is mandatory.</p>
@@ -291,7 +289,7 @@
       human-readable heading as their first child.</p>
     <p>IDs "metadata", "spine" , 'landmarks" and "toc" are reserved in the
       Navigation Document and must not be used by these extra <code>nav</code>
-      elements.<br>
+      elements.
     </p>
     <h3>2.6. Example of a Navigation Document</h3>
     <pre>&lt;!DOCTYPE html&gt;
@@ -302,23 +300,22 @@
   &lt;/head&gt;
   &lt;body&gt;
     &lt;header id="metadata"
-            vocab="http://purl.org/dc/elements/1.1/"
-            prefix="opf: http://www.idpf.org/2007/opf, dcterms: http://purl.org/dc/terms/"&gt;
+            vocab="http://www.idpf.org/2007/opf"&gt;
       &lt;ul&gt;
         &lt;li&gt;Author:
-          &lt;span property="creator"&gt;Herman Melville (&lt;span property="opf:file-as"&gt;Melville Herman&lt;/span&gt;)&lt;/span&gt;&lt;/li&gt;
+          &lt;span property="dc:creator"&gt;Herman Melville<br>            (&lt;span property="file-as"&gt;Melville Herman&lt;/span&gt;)&lt;/span&gt;&lt;/li&gt;
         &lt;li&gt;Title:
-            &lt;span property="title"&gt;Moby-Dick&lt;/span&gt;&lt;/li&gt;
+            &lt;span property="dc:title"&gt;Moby-Dick&lt;/span&gt;&lt;/li&gt;
 	&lt;li&gt;Identifier:
-	    &lt;span property="identifier"&gt;glazou.e0.samples.moby-dick&lt;/span&gt;&lt;/li&gt;
+	    &lt;span property="dc:identifier"&gt;glazou.e0.samples.moby-dick&lt;/span&gt;&lt;/li&gt;
 	&lt;li&gt;Language:
-	    &lt;span property="language"&gt;en-US&lt;/span&gt;&lt;/li&gt;
+	    &lt;span property="dc:language"&gt;en-US&lt;/span&gt;&lt;/li&gt;
 	&lt;li&gt;Last modification:
 	    &lt;span property="dcterms:modified"&gt;2017-01-17T11:16:41Z&lt;/span&gt;&lt;/li&gt;
 	&lt;li&gt;Publisher:
-	    &lt;span property="publisher"&gt;Harper &amp; Brothers, Publishers&lt;/span&gt;&lt;/li&gt;
+	    &lt;span property="dc:publisher"&gt;Harper &amp; Brothers, Publishers&lt;/span&gt;&lt;/li&gt;
 	&lt;li&gt;Contributor:
-	    &lt;span property="contributor"&gt;Daniel Glazman&lt;/span&gt;&lt;/li&gt;
+	    &lt;span property="dc:contributor"&gt;Daniel Glazman&lt;/span&gt;&lt;/li&gt;
       &lt;/ul&gt;
     &lt;/header&gt;
 
@@ -343,5 +340,10 @@
     &lt;/nav&gt;
   &lt;/body&gt;
 &lt;/html&gt;</pre>
-  </body>
-</html>
+    <h2>3. Directories</h2>
+    <p>A E0 Publication may contain any number of directories and nested
+      directories.</p>
+    <h2>4. E0 Content Documents</h2>
+    <p>E0 Content Documents are referenced from the Navigation Document. E0
+      Content Documents are html documents.</p><p>E0 Content Documents should contain <code>&lt;link rel="prev"...&gt;</code> and <code>&lt;link rel="next"...&gt;</code> elements in their <code>head</code> element conformant to the reading order of the spine present in the Navigation Document. Content Documents not present in that spine don't need such elements.</p><p>The <code>epub:type</code> attribute is superseded by the <code>role</code> attribute and must not be used.</p><h2>5. E0 Resources</h2><p>E0 Publications can contain any number of extra resources (CSS stylesheets, images, videos, etc.) referenced from either the Navigation Document or Content Documents.</p>
+</body></html>
