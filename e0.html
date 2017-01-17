@@ -3,7 +3,36 @@
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
     <title>Why I still don't like EPUB</title>
-  </head>
+    <style type="text/css">
+.issue {
+  border-top-width: thin;
+  border-right-width: thin;
+  border-bottom-width: thin;
+  border-left-width: thin;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-top-color: #e54d5b;
+  border-right-color: #e54d5b;
+  border-bottom-color: #e54d5b;
+  border-left-color: #e54d5b;
+}
+
+.issue::before {
+  background-color: #e54d5b;
+  color: white;
+  font-weight: bold;
+  content: "'" attr(data-issue) "'";
+  margin-right: 1em;
+  display: inline-block;
+  padding-top: 0.5em;
+  padding-right: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 0.5em;
+}
+
+</style></head>
   <body>
     <p>Long looooong ago, I wrote a <a href="http://www.glazman.org/weblog/dotclear/index.php?post/2003/04/14/2880-untitled">deep
         review of the XHTML 2.0 spec</a> that was one of the elements that led
@@ -11,9 +40,7 @@
       XHTML 2.0.&nbsp;</p>
     <p>Long ago, I started a similar effort on EPUB that led to Dave Cramer's
       EPUB Zero. <a href="http://www.walrus-books.com/livre-numerique-ce-que-nous-avons-rate-pourquoi-nous-lavons-rate-et-comment-nous-allons-changer-les-choses/">It's
-        time</a> (fr-FR) to draw
-      some conclusions.</p>
-    <p></p>
+        time</a> (fr-FR) to draw some conclusions.</p>
     <p>This document is <a href="https://github.com/therealglazou/epub31review">maintained
         on GitHub</a> and accepting contributions.</p>
     <p>Daniel Glazman</p>
@@ -224,6 +251,9 @@
       filename restrictions).</p>
     <p>The file name of a E0 Publication MUST use the <code>e0</code> file
       extension.</p>
+    <p data-issue="https://n.survol.fr/n/e0-le-retour-du-fils-de-la-vengeance" class="issue">Do
+      we really need a mandatory file extension? edasfr thinks we don't so we
+      can deal with zipped web sites.</p>
     <p>A E0 Publication MUST contain a Navigation Document. It MAY contain files
       encryption.xml, signatures.xml and rights.xml (see OCF 3.1 for more
       information). All these files must be placed directly inside the root of
@@ -251,6 +281,12 @@
       All metadata inside that <code>header</code> element are then expressed
       using html+RDFa Lite 1.1. E0 metadata reuse EPUB 3.1 metadata and
       corresponding unicity rules, expressed in a different way.</p>
+    <p data-issue="https://n.survol.fr/n/e0-le-retour-du-fils-de-la-vengeance" class="issue">Do
+      we really need @vocab?</p>
+    <p data-issue="https://n.survol.fr/n/e0-le-retour-du-fils-de-la-vengeance" class="issue">Explain
+      that we use RDFa Lite 1.1 only for @vocab, @prefix and @property
+      attributes. Explain that JSON-LD is not Wysiwygly editable nor trivially
+      rendered by web browsers.</p>
     <p>Refinements of metadata are expressed through nesting of elements.</p>
     <p>Example:</p>
     <pre>&lt;header id="metadata"
@@ -264,16 +300,23 @@
 &lt;/header&gt;</pre><p>
     The mandatory <code>title</code> element of the Navigation Document,
     contained in its <code>head</code> element, should have the same text
-    contents than the first "dc:title" metadata inside that header element.</p><h3>2.2. E0 Spine</h3>
+    contents than the first "dc:title" metadata inside that header element.</p><p
+data-issue="GH 1" class="issue">rdeltour wants to keep Media Overlays</p><p data-issue="https://n.survol.fr/n/e0-le-retour-du-fils-de-la-vengeance"
+class="issue">Make that header optional. The only mandatory thing is the title and it's in the <code>title</code> element of the document.</p><p
+data-issue="https://n.survol.fr/n/e0-le-retour-du-fils-de-la-vengeance" class="issue">edasfr thinks special nav elements should not be identified by an ID. I agree this is restriction of the ID value namespace but I don't like his solution, using @role only.</p>
+<h3>2.2. E0 Spine</h3>
     <p>The spine of a E0 Publication is expressed in its Navigation Document as
       a new <code>nav</code> element holding the "spine" ID. The spine <code>nav</code>
-      element is mandatory.</p>
+      element is mandatory.</p><p data-issue="GH 2" class="issue">Dave Cramer suggested to make the element optional and use the ToC instead if the spine is not present. I like it.</p><p
+data-issue="https://n.survol.fr/n/e0-le-retour-du-fils-de-la-vengeance" class="issue">edasfr thinks we should drop the spine since it can be recreated from link rel=prev/next elements. This is true but expensive. And you still need the first document to render...</p>
     <p>See <a href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB
         3.1 Navigation Document</a>.</p>
     <h3>2.3. E0 Table of Contents</h3>
     <p>The Table of Contents of a E0 Publication is expressed in its Navigation
       Document as a nav element carrying the "toc" ID. The Table of Contents <code>nav</code>
-      element is mandatory. </p>
+      element is mandatory. </p><p data-issue="https://n.survol.fr/n/e0-le-retour-du-fils-de-la-vengeance"
+class="issue">edasfr thinks the ToC should be optional.. Ahem. He also wants the spine to be dropped. So how do we define the first document to read?</p>
+
     <p>See <a href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB
         3.1 Navigation Document</a>.</p>
     <h3>2.4. E0 Landmarks</h3>
