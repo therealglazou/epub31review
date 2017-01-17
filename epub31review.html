@@ -155,8 +155,6 @@
         elements having a special <code>epub:type</code>/<code>role</code> (see
         <a href="https://github.com/IDPF/epub-revision/issues/941">issue #941</a>),
         that's easy to make it contain an equivalent to the spine or more.</li>
-      <li> <br>
-      </li>
     </ol>
     <h2>Content Documents</h2>
     <h2>Media Overlays</h2>
@@ -259,7 +257,16 @@
       corresponding unicity rules, expressed in a different way.</p>
     <p>Refinements of metadata are expressed through nesting of elements.</p>
     <p>Example:</p>
-    <pre>&lt;header role="doc-metadata"<br>        vocab="http://purl.org/dc/elements/1.1/"<br>        prefix="opf: http://www.idpf.org/2007/opf"&gt;<br>  &lt;dl&gt;<br>    &lt;dt&gt;Author:&lt;/dt&gt;<br>    &lt;dd&gt;&lt;span property="creator"&gt;glazou (&lt;span property="opf:file-as"&gt;Glazman, Daniel&lt;/span&gt;)&lt;/span&gt;&lt;/dd&gt;<br>    &lt;dt&gt;Title:&lt;/dt&gt;<br>    &lt;dd property="title"&gt;E0 Publications&lt;/dd&gt;<br>  &lt;/dl&gt;<br>&lt;/header&gt;</pre><h3>2.2. E0 Spine</h3><p>The spine of a E0 Publication is expressed in its Navigation Document as a new <code>nav</code> element holding the proposed new DPUB-ARIA "doc-spine" <code>role</code> attribute. The spine <code>nav</code> element is mandatory.</p><p>See <a
+    <pre>&lt;header role="doc-metadata"
+        vocab="http://purl.org/dc/elements/1.1/"
+        prefix="opf: http://www.idpf.org/2007/opf"&gt;
+  &lt;dl&gt;
+    &lt;dt&gt;Author:&lt;/dt&gt;
+    &lt;dd&gt;&lt;span property="creator"&gt;glazou (&lt;span property="opf:file-as"&gt;Glazman, Daniel&lt;/span&gt;)&lt;/span&gt;&lt;/dd&gt;
+    &lt;dt&gt;Title:&lt;/dt&gt;
+    &lt;dd property="title"&gt;E0 Publications&lt;/dd&gt;
+  &lt;/dl&gt;
+&lt;/header&gt;</pre><h3>2.2. E0 Spine</h3><p>The spine of a E0 Publication is expressed in its Navigation Document as a new <code>nav</code> element holding the proposed new DPUB-ARIA "doc-spine" <code>role</code> attribute. The spine <code>nav</code> element is mandatory.</p><p>See <a
 href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB 3.1 Navigation Document</a>.</p><h3>2.3. E0 Table of Contents</h3>
 <p>The Table of Contents of a E0 Publication is expressed in its Navigation Document as a nav element carrying the "toc" role attribute. The Table of Contents <code>nav</code> element is mandatory.
 </p>
