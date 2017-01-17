@@ -8,9 +8,12 @@
     <p>Long looooong ago, I wrote a <a href="http://www.glazman.org/weblog/dotclear/index.php?post/2003/04/14/2880-untitled">deep
         review of the XHTML 2.0 spec</a> that was one of the elements that led
       to the resuming of the HTML activity at the W3C and the final dismissal of
-      XHTML 2.0. <a href="http://www.walrus-books.com/livre-numerique-ce-que-nous-avons-rate-pourquoi-nous-lavons-rate-et-comment-nous-allons-changer-les-choses/">It's
-        time</a> (fr-FR) to do the same thing for the EPUB specs and draw some
-      conclusions.</p>
+      XHTML 2.0.&nbsp;</p>
+    <p>Long ago, I started a similar effort on EPUB that led to Dave Cramer's
+      EPUB Zero. <a href="http://www.walrus-books.com/livre-numerique-ce-que-nous-avons-rate-pourquoi-nous-lavons-rate-et-comment-nous-allons-changer-les-choses/">It's
+        time</a> (fr-FR) to draw
+      some conclusions.</p>
+    <p></p>
     <p>This document is <a href="https://github.com/therealglazou/epub31review">maintained
         on GitHub</a> and accepting contributions.</p>
     <p>Daniel Glazman</p>
@@ -175,7 +178,7 @@
       <li>backwards compatibility is an enormous burden on the EPUB ecosystem</li>
       <li>build a new generation of EPUB that is not backwards-compatible</li>
       <li>the <code>mimetype</code> file is useless</li>
-      <li>file extension of the publication MUST be <code>epub</code></li>
+      <li>file extension of the publication MUST be well-defined<code></code></li>
       <li>one rendition only per publication and no more <code>links</code>/<code>link</code>
         elements</li>
       <li>in that case, we don't need the <code>container.xml</code> file any
@@ -184,20 +187,17 @@
       <li>we may still need <code>encryption.xml,</code> <code>signatures.xml</code>
         and <code>rights.xml </code>inside a META-INF directory (or directly
         in the package's root after all) to please the industry.</li>
-      <li><code>application/oebps-package+xml</code> mimetype still needed</li>
+      <li><code>application/oebps-package+xml</code> mimetype is not necessary</li>
       <li>the EPUB spec evolution model is/was "we must deal with all cases in
         the world, we move very fast and we fix the mistakes afterwards". I
-        respectfully suggest a drastic change for EPUB 4: "let's start from a
-        low-level common ground only and expand slowly but cleanly"</li>
+        respectfully suggest a drastic change for a next generation: "let's
+        start from a low-level common ground only and expand slowly but cleanly"</li>
       <li>the OPF file is not needed any more. The root of the unique rendition
         in a package should be the html Navigation Document.</li>
-      <li>the metadata of the package should be <code>title</code>, <code>meta</code>
-        and <code>link</code> elements inside the <code>head</code> element of
-        the Navigation Document</li>
-      <li>the spine of the package can be a list of <code>link</code> elements
-        inside the <code>head</code> element of the Navigation Document or even
-        a new <code>nav</code> element inside the <code>body</code> of the
-        Navigation Document</li>
+      <li>the metadata of the package should be inside the <code>body</code>
+        element of the Navigation Document</li>
+      <li>the spine of the package can be a new <code>nav</code> element inside
+        the <code>body</code> of the Navigation Document</li>
       <li>intermediary summary: let's get rid of both <code>META-INF/container.xml</code>
         and the OPF file... Let's have the Navigation Document mandatorily named
         <code>index.xhtml</code> so a directory browsing of the uncompressed
