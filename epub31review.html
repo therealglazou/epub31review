@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
     <title>Why I still don't like EPUB</title>
     <style>
       body {
         font-family: "Arial", "Helvetica", "sans-serif";
-			}
-		</style>
+      }
+    </style>
   </head>
   <body>
     <p>Long looooong ago, I wrote a <a href="http://www.glazman.org/weblog/dotclear/index.php?post/2003/04/14/2880-untitled">deep
@@ -175,8 +175,7 @@
     </ol>
     <h2><em>On the fly</em> conclusions</h2>
     <ol>
-      <li>backwards compatibility is an enormous burden on the EPUB
-        ecosystem</li>
+      <li>backwards compatibility is an enormous burden on the EPUB ecosystem</li>
       <li>build a new generation of EPUB that is not backwards-compatible</li>
       <li>the <code>mimetype</code> file is useless</li>
       <li>file extension of the publication MUST be <code>epub</code></li>
@@ -199,9 +198,9 @@
         and <code>link</code> elements inside the <code>head</code> element of
         the Navigation Document</li>
       <li>the spine of the package can be a list of <code>link</code> elements
-        inside the <code>head</code> element of the Navigation Document or, if
-        the spine needs to be presented through html rendering, a new <code>nav</code>
-        element inside the <code>body</code> of the Navigation Document</li>
+        inside the <code>head</code> element of the Navigation Document or even
+        a new <code>nav</code> element inside the <code>body</code> of the
+        Navigation Document</li>
       <li>intermediary summary: let's get rid of both <code>META-INF/container.xml</code>
         and the OPF file... Let's have the Navigation Document mandatorily named
         <code>index.xhtml</code> so a directory browsing of the uncompressed
@@ -210,5 +209,65 @@
         Media Queries to CSS WG if needed.</li>
       <li>let's drop Media Overlays spec for now.</li>
     </ol>
-  </body>
-</html>
+    <h2>CONCLUSION</h2>
+    <p>EPUB is a monster, made to address very diverse markets and ecosystems,
+      too many markets and ecosystems. It's weak, complex, a bit messy,
+      disconnected from the reality of the Web it's supposed to be built upon
+      and <a href="http://www.walrus-books.com/livre-numerique-ce-que-nous-avons-rate-pourquoi-nous-lavons-rate-et-comment-nous-allons-changer-les-choses/">some
+        claim</a> (link in fr-FR) it's too close to real books to be disruptive
+      and innovative.</p>
+    <p>I am then suggesting to severe backwards compatibility ties and restart
+      almost from scratch, and entirely and purely from W3C Standards. Here's
+      the proposed result:</p>
+    <hr>
+    <h2>1. E0 Publication</h2>
+    <p>A E0 Publication is a ZIP container. Files in the ZIP must be stored as
+      is (no compression) or use the Deflate algorithm. File and directory names
+      must be encoded in UTF-8 and follow some restrictions (see EPUB 3.1
+      filename restrictions).</p>
+    <p>The file name of a E0 Publication MUST use the <code>e0</code> file
+      extension.</p>
+    <p>A E0 Publication MUST contain a Navigation Document. It MAY contain files
+      encryption.xml, signatures.xml and rights.xml (see OCF 3.1 for more
+      information). All these files must be placed directly inside the root of
+      the E0 Publication.</p>
+    <p>A E0 Publication can also contain Content Documents and their resources.</p>
+    <p>Inside a E0 Publication, all internal references (links, anchors,
+      references to replaced elements, etc) MUST be strictly relative. With
+      respect to section 4.2 of RFC 3986, only <code>path-noscheme</code> and <code>path-empty</code>
+      are allowed for IRIs' <code>relative-part</code>. External references are
+      not restricted.</p>
+    <h2>2. E0 Navigation Document</h2>
+    <p>A E0 Navigation Document is a html document. Its file name MUST be <code>index.xhtml</code>
+      if the document is a XML document and <code>index.html</code> if it it
+      not a XML document. A E0 Publication cannot contain both <code>index.html</code>
+      and <code>index.xhtml</code> files.</p>
+    <p>A E0 Navigation Document contains at least one <code>header</code>
+      element (for metadata) and <code>nav</code> html elements in its <code>body</code>.
+      At least one <code>nav</code> element, carrying the proposed new
+      DPUB-ARIA "doc-spine" <code>role</code> attribute is mandatory. Some
+      metadata are also mandatory.</p>
+    <h3>2.1. E0 Metadata in the Navigation Document</h3>
+    <p>E0 metadata are designed to be editable in any Wysiwyg html editor, and
+      potentially rendered as regular html content by any Web browser.</p>
+    <p>E0 metadata are expressed inside a mandatory <code>header</code> html
+      element inside the Navigation Document. That element must carry <code>role</code>
+      attribute with the proposed new DPUB-ARIA value "<code>doc-metadata</code>"
+      and the <code>vocab</code> attribute with value "<code>http://purl.org/dc/elements/1.1/</code>".
+      All metadata inside that <code>header</code> element are then expressed
+      using HTML5+RDFa Lite 1.1. E0 metadata reuse EPUB 3.1 metadata and
+      corresponding unicity rules, expressed in a different way.</p>
+    <p>Refinements of metadata are expressed through nesting of elements.</p>
+    <p>Example:</p>
+    <pre>&lt;header role="doc-metadata"<br>        vocab="http://purl.org/dc/elements/1.1/"<br>        prefix="opf: http://www.idpf.org/2007/opf"&gt;<br>  &lt;dl&gt;<br>    &lt;dt&gt;Author:&lt;/dt&gt;<br>    &lt;dd&gt;&lt;span property="creator"&gt;glazou (&lt;span property="opf:file-as"&gt;Glazman, Daniel&lt;/span&gt;)&lt;/span&gt;&lt;/dd&gt;<br>    &lt;dt&gt;Title:&lt;/dt&gt;<br>    &lt;dd property="title"&gt;E0 Publications&lt;/dd&gt;<br>  &lt;/dl&gt;<br>&lt;/header&gt;</pre><h3>2.2. E0 Spine</h3><p>The spine of a E0 Publication is expressed in its Navigation Document as a new <code>nav</code> element holding the proposed new DPUB-ARIA "doc-spine" <code>role</code> attribute. The spine <code>nav</code> element is mandatory.</p><p>See <a
+href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB 3.1 Navigation Document</a>.</p><h3>2.3. E0 Table of Contents</h3>
+<p>The Table of Contents of a E0 Publication is expressed in its Navigation Document as a nav element carrying the "toc" role attribute. The Table of Contents <code>nav</code> element is mandatory.
+</p>
+<p>See <a href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB 3.1 Navigation Document</a>.</p>
+<h3>2.4. E0 Landmarks</h3>
+<p>The Landmarks of a E0 Publication is expressed in its Navigation Document as a nav element carrying the "toc" role attribute. The Landmarks <code>nav</code> element is optional.
+</p>
+<p>See <a href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB 3.1 Navigation Document</a>.</p>
+<h3>2.5. Other <code>nav</code> elements</h3><p>The Navigation Document may include one or more <code>nav</code> elements. These additional <code>nav</code> elements should have an <code>role</code> attribute to provide a machine-readable semantic, and must have a human-readable heading as their first child.</p>
+
+</body></html>
