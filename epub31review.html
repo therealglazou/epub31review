@@ -241,23 +241,19 @@
       not a XML document. A E0 Publication cannot contain both <code>index.html</code>
       and <code>index.xhtml</code> files.</p>
     <p>A E0 Navigation Document contains at least one <code>header</code>
-      element (for metadata) and <code>nav</code> html elements in its <code>body</code>.
-      At least one <code>nav</code> element, carrying the proposed new
-      DPUB-ARIA "doc-spine" <code>role</code> attribute is mandatory. Some
-      metadata are also mandatory.</p>
+      element (for metadata) and <code>nav</code> html elements in its <code>body</code>.</p>
     <h3>2.1. E0 Metadata in the Navigation Document</h3>
     <p>E0 metadata are designed to be editable in any Wysiwyg html editor, and
       potentially rendered as regular html content by any Web browser.</p>
     <p>E0 metadata are expressed inside a mandatory <code>header</code> html
-      element inside the Navigation Document. That element must carry <code>role</code>
-      attribute with the proposed new DPUB-ARIA value "<code>doc-metadata</code>"
-      and the <code>vocab</code> attribute with value "<code>http://purl.org/dc/elements/1.1/</code>".
+      element inside the Navigation Document. That element must carry the "<code>metadata</code>"
+      ID and the <code>vocab</code> attribute with value "<code>http://purl.org/dc/elements/1.1/</code>".
       All metadata inside that <code>header</code> element are then expressed
       using HTML5+RDFa Lite 1.1. E0 metadata reuse EPUB 3.1 metadata and
       corresponding unicity rules, expressed in a different way.</p>
     <p>Refinements of metadata are expressed through nesting of elements.</p>
     <p>Example:</p>
-    <pre>&lt;header role="doc-metadata"
+    <pre>&lt;header id="metadata"
         vocab="http://purl.org/dc/elements/1.1/"
         prefix="opf: http://www.idpf.org/2007/opf"&gt;
   &lt;dl&gt;
@@ -266,15 +262,86 @@
     &lt;dt&gt;Title:&lt;/dt&gt;
     &lt;dd property="title"&gt;E0 Publications&lt;/dd&gt;
   &lt;/dl&gt;
-&lt;/header&gt;</pre><h3>2.2. E0 Spine</h3><p>The spine of a E0 Publication is expressed in its Navigation Document as a new <code>nav</code> element holding the proposed new DPUB-ARIA "doc-spine" <code>role</code> attribute. The spine <code>nav</code> element is mandatory.</p><p>See <a
-href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB 3.1 Navigation Document</a>.</p><h3>2.3. E0 Table of Contents</h3>
-<p>The Table of Contents of a E0 Publication is expressed in its Navigation Document as a nav element carrying the "toc" role attribute. The Table of Contents <code>nav</code> element is mandatory.
-</p>
-<p>See <a href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB 3.1 Navigation Document</a>.</p>
-<h3>2.4. E0 Landmarks</h3>
-<p>The Landmarks of a E0 Publication is expressed in its Navigation Document as a nav element carrying the "toc" role attribute. The Landmarks <code>nav</code> element is optional.
-</p>
-<p>See <a href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB 3.1 Navigation Document</a>.</p>
-<h3>2.5. Other <code>nav</code> elements</h3><p>The Navigation Document may include one or more <code>nav</code> elements. These additional <code>nav</code> elements should have an <code>role</code> attribute to provide a machine-readable semantic, and must have a human-readable heading as their first child.</p>
+&lt;/header&gt;</pre>
+    The mandatory <code>title</code> element of the Navigation Document,
+    contained in its <code>head</code> element, should have the same text
+    contents than the first title metadata inside that header element.<br>
+    <h3>2.2. E0 Spine</h3>
+    <p>The spine of a E0 Publication is expressed in its Navigation Document as
+      a new <code>nav</code> element holding the "spine" ID. The spine <code>nav</code>
+      element is mandatory.</p>
+    <p>See <a href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB
+        3.1 Navigation Document</a>.</p>
+    <h3>2.3. E0 Table of Contents</h3>
+    <p>The Table of Contents of a E0 Publication is expressed in its Navigation
+      Document as a nav element carrying the "toc" ID. The Table of Contents <code>nav</code>
+      element is mandatory. </p>
+    <p>See <a href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB
+        3.1 Navigation Document</a>.</p>
+    <h3>2.4. E0 Landmarks</h3>
+    <p>The Landmarks of a E0 Publication is expressed in its Navigation Document
+      as a nav element carrying the "landmarks" ID. The Landmarks <code>nav</code>
+      element is optional. </p>
+    <p>See <a href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB
+        3.1 Navigation Document</a>.</p>
+    <h3>2.5. Other <code>nav</code> elements</h3>
+    <p>The Navigation Document may include one or more <code>nav</code>
+      elements. These additional <code>nav</code> elements should have an <code>role</code>
+      attribute to provide a machine-readable semantic, and must have a
+      human-readable heading as their first child.</p>
+    <p>IDs "metadata", "spine" , 'landmarks" and "toc" are reserved in the
+      Navigation Document and must not be used by these extra <code>nav</code>
+      elements.<br>
+    </p>
+    <h3>2.6. Example of a Navigation Document</h3>
+    <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta content="text/html; charset=UTF-8" http-equiv="content-type"&gt;
+    &lt;title&gt;Moby-Dick&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header id="metadata"
+            vocab="http://purl.org/dc/elements/1.1/"
+            prefix="opf: http://www.idpf.org/2007/opf, dcterms: http://purl.org/dc/terms/"&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Author:
+          &lt;span property="creator"&gt;Herman Melville (&lt;span property="opf:file-as"&gt;Melville Herman&lt;/span&gt;)&lt;/span&gt;&lt;/li&gt;
+        &lt;li&gt;Title:
+            &lt;span property="title"&gt;Moby-Dick&lt;/span&gt;&lt;/li&gt;
+	&lt;li&gt;Identifier:
+	    &lt;span property="identifier"&gt;glazou.e0.samples.moby-dick&lt;/span&gt;&lt;/li&gt;
+	&lt;li&gt;Language:
+	    &lt;span property="language"&gt;en-US&lt;/span&gt;&lt;/li&gt;
+	&lt;li&gt;Last modification:
+	    &lt;span property="dcterms:modified"&gt;2017-01-17T11:16:41Z&lt;/span&gt;&lt;/li&gt;
+	&lt;li&gt;Publisher:
+	    &lt;span property="publisher"&gt;Harper &amp; Brothers, Publishers&lt;/span&gt;&lt;/li&gt;
+	&lt;li&gt;Contributor:
+	    &lt;span property="contributor"&gt;Daniel Glazman&lt;/span&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/header&gt;
 
-</body></html>
+    &lt;nav id="spine"&gt;
+      &lt;h1&gt;Default reading order&lt;/h1&gt;
+      &lt;ul&gt;
+	&lt;li&gt;&lt;a href="cover.html"&gt;Cover&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="titlepage.html"&gt;Title&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="toc-short.html"&gt;Brief Table of Contents&lt;/a&gt;&lt;/li&gt;
+	...
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;nav id="toc" role="doc-toc"&gt;
+      &lt;h1&gt;Table of Contents&lt;/h1&gt;
+      &lt;ol&gt;
+	&lt;li&gt;&lt;a href="titlepage.html"&gt;Moby-Dick&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="preface_001.html"&gt;Original Transcriber’s Notes:&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="introduction_001.html"&gt;ETYMOLOGY.&lt;/a&gt;&lt;/li&gt;
+	...
+      &lt;/ol&gt;
+    &lt;/nav&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+  </body>
+</html>
