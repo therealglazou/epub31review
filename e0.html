@@ -283,9 +283,13 @@ pre {
       if the document is a XML document and <code>index.html</code> if it it is
       not a XML document. A E0 Publication cannot contain both <code>index.html</code>
       and <code>index.xhtml</code> files.</p>
+    <p data-issue="GH 13" class="issue">index.html: part of the document, or
+      just for metadata</p>
     <p>A E0 Navigation Document contains at least one <code>header</code>
       element (for metadata) and at least two <code>nav</code> html elements
       (for spine and table of contents) in its <code>body</code> element.</p>
+    <p data-issue="GH 12" class="issue">dauwhe wants to preserve a manifest of
+      file...</p>
     <h3>2.1. E0 Metadata in the Navigation Document</h3>
     <p>E0 metadata are designed to be editable in any Wysiwyg html editor, and
       potentially rendered as regular html content by any Web browser.</p>
@@ -324,14 +328,16 @@ data-issue="GH 9" class="issue">edasfr thinks special nav elements should not be
       a new <code>nav</code> element holding the "spine" ID. The spine <code>nav</code>
       element is mandatory.</p><p data-issue="GH 2" class="issue">Dave Cramer suggested to make the element optional and use the ToC instead if the spine is not present. I like it.</p><p
 data-issue="GH 3" class="issue">edasfr thinks we should drop the spine since it can be recreated from link rel=prev/next elements. This is true but expensive. And you still need the first document to render...</p>
-    <p>See <a href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB
+    <p data-issue="GH 14" class="issue">Explicit spine vs rel=next / rel=prev</p><p>See <a
+href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB
         3.1 Navigation Document</a>.</p>
     <h3>2.3. E0 Table of Contents</h3>
     <p>The Table of Contents of a E0 Publication is expressed in its Navigation
       Document as a nav element carrying the "toc" ID. The Table of Contents <code>nav</code>
       element is mandatory. </p><p data-issue="GH 4" class="issue">edasfr thinks the ToC should be optional.. Ahem. He also wants the spine to be dropped. So how do we define the first document to read?</p>
 
-    <p>See <a href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB
+    <p data-issue="GH 15" class="issue">What to do if there are several tocs?</p><p>See <a
+href="http://www.idpf.org/epub/31/spec/epub-packages.html#sec-package-nav">EPUB
         3.1 Navigation Document</a>.</p>
     <h3>2.4. E0 Landmarks</h3>
     <p>The Landmarks of a E0 Publication is expressed in its Navigation Document
@@ -403,4 +409,5 @@ data-issue="GH 3" class="issue">edasfr thinks we should drop the spine since it 
     <h2>4. E0 Content Documents</h2>
     <p>E0 Content Documents are referenced from the Navigation Document. E0
       Content Documents are html documents.</p><p>E0 Content Documents should contain <code>&lt;link rel="prev"...&gt;</code> and <code>&lt;link rel="next"...&gt;</code> elements in their <code>head</code> element conformant to the reading order of the spine present in the Navigation Document. Content Documents not present in that spine don't need such elements.</p><p>The <code>epub:type</code> attribute is superseded by the <code>role</code> attribute and must not be used.</p><h2>5. E0 Resources</h2><p>E0 Publications can contain any number of extra resources (CSS stylesheets, images, videos, etc.) referenced from either the Navigation Document or Content Documents.</p>
+
 </body></html>
