@@ -33,6 +33,28 @@ client of the Web.
 
 <em>This section is informative.</em>
 
+The following requirements are the basis for the technical choices in this specification:
+
+    1. one URL is enough to retrieve a remote WebBook instance, there is no need to download every resource composing that instance
+
+    1. a WebBook can be unzipped in a Web site's directory and  directly readable by a Web browser using the URL for that directory
+
+    2. a WebBook can be unzipped in a local directory and directly readable by a Web browser opening its <code>index.html</code> topmost file
+
+    3. each individual resource in an unzipped WebBook (on a Web site or on a local disk) is directly readable by a Web browser
+
+    4. any html document can be used as content document inside a WebBook instance, without restriction
+
+    5. any stylesheet, replaced resource (images, audio, video, etc.) or additional resource useable by a html document (JavaScript, manifests, etc.) can be used inside the navigation document or the content documents of a WebBook instance, without restriction
+
+    6. the navigation document and the content documents inside a WebBook instance can be created and edited by any html editor
+
+    7. the metadata, spine, table of contents contained in the navigation document of a WebBook instance can be created and edited by any html editor
+
+    8. the WebBook specification (all Levels) is backwards-compatible
+
+    9. the WebBook specification is forwards-compatible, at the potential cost of <em>graceful degradation</em> of some content
+
 # WebBook instances  # {#instances}
 
 A WebBook instance is a [[ZIP]] container. All files in a WebBook instance

@@ -1,7 +1,7 @@
 <!doctype html><html lang="en">
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  <title>E0, Web-based ebooks</title>
+  <title>WebBook Level 1</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 <style data-fill-with="stylesheet">/******************************************************************************
  *                   Style sheet for the W3C specifications                   *
@@ -1177,8 +1177,8 @@ Possible extra rowspan handling
 	}
 </style>
   <meta content="Bikeshed version 2b79dbafbd71fe3f8f4e2b9171e40a0bd49a639c" name="generator">
-  <link href="http://example.com/url-this-spec-will-live-at" rel="canonical">
-  <meta content="815703629ea11bd3efd843cce00b3133e845e9ab" name="document-revision">
+  <link href="https://github.com/therealglazou/epub31review/tree/master/bs" rel="canonical">
+  <meta content="959fc2e7c81526450e89dd9f01d7f2f0bb501656" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1329,12 +1329,12 @@ pre .property::before, pre .property::after {
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"></p>
-   <h1 class="p-name no-ref" id="title">E0, Web-based ebooks</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Unofficial Proposal Draft, <time class="dt-updated" datetime="2018-01-09">9 January 2018</time></span></h2>
+   <h1 class="p-name no-ref" id="title">WebBook Level 1</h1>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Unofficial Proposal Draft, <time class="dt-updated" datetime="2018-01-10">10 January 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
-     <dd><a class="u-url" href="http://example.com/url-this-spec-will-live-at">http://example.com/url-this-spec-will-live-at</a>
+     <dd><a class="u-url" href="https://github.com/therealglazou/epub31review/tree/master/bs">https://github.com/therealglazou/epub31review/tree/master/bs</a>
      <dt>Issue Tracking:
      <dd><a href="https://github.com/therealglazou/epub31review/issues/">GitHub</a>
      <dt class="editor">Editor:
@@ -1344,7 +1344,7 @@ pre .property::before, pre .property::after {
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 9 January 2018,
+In addition, as of 10 January 2018,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1352,14 +1352,18 @@ Parts of this work may be from another specification document.  If so, those par
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>E0 is a new format for electronic books, based on Web Standards only, and meant to make such books readable inside a browser.</p>
+   <p>WebBook is a new format for electronic books, based on Web Standards only, and meant to make such books readable inside a browser.</p>
   </div>
   <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
-    <li><a href="#intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
-    <li><a href="#instances"><span class="secno">2</span> <span class="content">E0 instances</span></a>
+    <li>
+     <a href="#intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
+     <ol class="toc">
+      <li><a href="#reqs"><span class="secno">1.1</span> <span class="content">Requirements</span></a>
+     </ol>
+    <li><a href="#instances"><span class="secno">2</span> <span class="content">WebBook instances</span></a>
     <li>
      <a href="#navigation-document"><span class="secno">3</span> <span class="content">The navigation document</span></a>
      <ol class="toc">
@@ -1370,47 +1374,72 @@ Parts of this work may be from another specification document.  If so, those par
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
      <ol class="toc">
       <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
+      <li><a href="#informative"><span class="secno"></span> <span class="content">Informative References</span></a>
      </ol>
    </ol>
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="intro"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#intro"></a></h2>
+   <p><em>This section is informative.</em></p>
    <p>The world of electronic books (ebooks) is very fragmented, technically
-speaking. One of the main distribution formats for ebooks is EPUB, a
-Standard-level document released by the former International Digital
-Publishing Forum that merged in 2017 with the World Wide Web Consortium.</p>
-   <p>The EPUB format, inheriting from multiple sources, is not readable
-inside a browser without a dedicated programmatic layer. Even if the
-ZIP package containing an EPUB is unzipped, finding the individual
-html documents composing the ebook is not a task anyone can perform.</p>
-   <p>Furthermore, the EPUB format relies a lot on dedicated XML dialects
-that would not be easy to style inside a browser even with a dedicated
-CSS stylesheet and that raise many technical issues anyway.</p>
-   <p>Last but not least, the EPUB market increasing in size while each
-version of EPUB is incompatible with others (older or newer), it’s
-getting more and more costly for publishers to upgrade the millions of
-EPUB-based ebooks. Updating EPUB is then more and more difficult, and
-only a new ebook solution, rebuilt from the ground up strictly based
-on the most common Web Standards, can free the electronic book from
-its current industrial silo to make it become a real first-class
+speaking. The current electronic book formats, inheriting from
+multiple sources, are not readable inside a browser without a
+dedicated programmatic layer. Even if the ZIP package containing the
+electronic book is unzipped, finding and rendering the individual
+documents composing the book is not a task anyone can
+perform. Furthermore, most of these existing formats rely a lot on
+dedicated XML or even proprietary binary formats that raise many
+technical issues.</p>
+   <p>The current document proposes the Level 1 of a new electronic book
+format, called WebBook, designed to free the electronic book market
+from its current industrial silo to make it become a real first-class
 client of the Web.</p>
-   <p>The current document proposes such a format, called E0.</p>
-   <h2 class="heading settled" data-level="2" id="instances"><span class="secno">2. </span><span class="content">E0 instances</span><a class="self-link" href="#instances"></a></h2>
-   <p>A E0 instance is a ZIP container. All files in the E0 instance mist be
-stored as is (no compression) or use the Deflate algorithm. All file
-and directory names must be encoded in UTF-8.</p>
-   <p>The file name of a E0 instance MUST use the <code>e0</code> file extension.</p>
-   <p>A E0 instance MUST contain a <a href="#navigation-document">navigation document</a>.</p>
-   <p>A E0 instance and each directory inside that E0 instance can contain
-any number of files and directories.</p>
-   <p>Inside a E0 instance, all internal references (links, references to
-replaced elements, etc.) MUST be strictly relative. With respect to
-section 4.2 of RFC 3986, only path-noscheme and path-empty are allowed
-for IRIs' relative-part. External references are not restricted.</p>
+   <h3 class="heading settled" data-level="1.1" id="reqs"><span class="secno">1.1. </span><span class="content">Requirements</span><a class="self-link" href="#reqs"></a></h3>
+   <p><em>This section is informative.</em></p>
+   <p>The following requirements are the basis for the technical choices in this specification:</p>
+   <ol>
+    <li data-md="">
+     <p>one URL is enough to retrieve a remote WebBook instance, there is no need to download every resource composing that instance</p>
+    <li data-md="">
+     <p>a WebBook can be unzipped in a Web site’s directory and  directly readable by a Web browser using the URL for that directory</p>
+    <li data-md="">
+     <p>a WebBook can be unzipped in a local directory and directly readable by a Web browser opening its <code>index.html</code> topmost file</p>
+    <li data-md="">
+     <p>each individual resource in an unzipped WebBook (on a Web site or on a local disk) is directly readable by a Web browser</p>
+    <li data-md="">
+     <p>any html document can be used as content document inside a WebBook instance, without restriction</p>
+    <li data-md="">
+     <p>any stylesheet, replaced resource (images, audio, video, etc.) or additional resource useable by a html document (JavaScript, manifests, etc.) can be used inside the navigation document or the content documents of a WebBook instance, without restriction</p>
+    <li data-md="">
+     <p>the navigation document and the content documents inside a WebBook instance can be created and edited by any html editor</p>
+    <li data-md="">
+     <p>the metadata, spine, table of contents contained in the navigation document of a WebBook instance can be created and edited by any html editor</p>
+    <li data-md="">
+     <p>the WebBook specification (all Levels) is backwards-compatible</p>
+    <li data-md="">
+     <p>the WebBook specification is forwards-compatible, at the potential cost of <em>graceful degradation</em> of some content</p>
+   </ol>
+   <h2 class="heading settled" data-level="2" id="instances"><span class="secno">2. </span><span class="content">WebBook instances</span><a class="self-link" href="#instances"></a></h2>
+   <p>A WebBook instance is a <a data-link-type="biblio" href="#biblio-zip">[ZIP]</a> container. All files in a WebBook instance
+MUST be stored as is (no compression) or using the Deflate
+algorithm. All file and directory names must be encoded in UTF-8 <a data-link-type="biblio" href="#biblio-unicode">[UNICODE]</a>.</p>
+   <p>The file name of a WebBook instance MUST use the <code>wbook</code> file extension.</p>
+   <p>A WebBook instance MUST contain a <a href="#navigation-document">navigation document</a>.</p>
+   <p>A WebBook instance and each directory inside that WebBook instance can contain
+any number of files and directories. All files inside a WebBook instance
+MUST have a file extension to ensure all User Agents (including Web
+browsers) can render the file if necessary even if no HTTP header is
+present or if the User Agent cannot determine the type of the file
+from its contents.</p>
+   <p>Inside a WebBook Level 1 instance, all internal references (links,
+references to replaced elements, etc.) MUST be strictly relative. With
+respect to section 4.2 of <a data-link-type="biblio" href="#biblio-rfc3986">[RFC3986]</a>, only <code>path-noscheme</code> and <code>path-empty</code> are allowed for
+IRIs' <code>relative-part</code>. References to resources external to
+the WebBook instance are not restricted.</p>
    <h2 class="heading settled" data-level="3" id="navigation-document"><span class="secno">3. </span><span class="content">The navigation document</span><a class="self-link" href="#navigation-document"></a></h2>
-   <p>The navigation document MUST be a html document (HTML serialization)
+   <p>The navigation document MUST be a <a data-link-type="biblio" href="#biblio-html">[html]</a> document (HTML serialization)
 named <code>index.html</code>. The navigation document MUST be placed
-inside the topmost directory inside the containing E0 instance.</p>
+inside the topmost directory inside the containing WebBook instance.</p>
    <p>The navigation document is a regular html document, intended to be
 rendered by a Web browser, that contains the following information:</p>
    <ul>
@@ -1586,6 +1615,17 @@ rendered by a Web browser, that contains the following information:</p>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
+   <dt id="biblio-html">[HTML]
+   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
+   <dt id="biblio-rfc3986">[RFC3986]
+   <dd>T. Berners-Lee; R. Fielding; L. Masinter. <a href="https://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>. January 2005. Internet Standard. URL: <a href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a>
+   <dt id="biblio-unicode">[UNICODE]
+   <dd><a href="https://www.unicode.org/versions/latest/">The Unicode Standard</a>. URL: <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
+  </dl>
+  <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
+  <dl>
+   <dt id="biblio-zip">[ZIP]
+   <dd><a href="https://pkware.cachefly.net/webdocs/APPNOTE/APPNOTE-6.3.3.TXT">.ZIP File Format Specification 6.3.3</a>. URL: <a href="https://pkware.cachefly.net/webdocs/APPNOTE/APPNOTE-6.3.3.TXT">https://pkware.cachefly.net/webdocs/APPNOTE/APPNOTE-6.3.3.TXT</a>
   </dl>
