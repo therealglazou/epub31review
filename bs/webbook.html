@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 2b79dbafbd71fe3f8f4e2b9171e40a0bd49a639c" name="generator">
   <link href="https://github.com/therealglazou/epub31review/tree/master/bs" rel="canonical">
-  <meta content="20d6a23cc83167a9628ffccdcced0b70ebd89640" name="document-revision">
+  <meta content="2c85bc5a027b9f4a9e7ee5a576c695076196f386" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1372,7 +1372,9 @@ Parts of this work may be from another specification document.  If so, those par
       <li><a href="#navigation-document-direction"><span class="secno">2.4</span> <span class="content">The progression direction</span></a>
       <li><a href="#navigation-document-identifier"><span class="secno">2.5</span> <span class="content">The identifier</span></a>
       <li><a href="#navigation-document-other-metadata"><span class="secno">2.6</span> <span class="content">Other metadata</span></a>
+      <li><a href="#navigation-document-navlist"><span class="secno">2.7</span> <span class="content">The navigation list</span></a>
      </ol>
+    <li><a href="#acks"><span class="secno">3</span> <span class="content">Acknowledgements</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
@@ -1469,7 +1471,7 @@ rendered by a Web browser, that contains the following information:</p>
        <p><a href="#navigation-document-other-metadata">other metadata</a> (optional)</p>
      </ul>
     <li data-md="">
-     <p>a table of contents (optional)</p>
+     <p>a <a href="#navigation-document-navlist">navigation list</a> (optional)</p>
     <li data-md="">
      <p>other html elements (optional)</p>
    </ul>
@@ -1566,6 +1568,43 @@ a WebBook.</p>
 &lt;/html>
 </pre>
    </div>
+   <h3 class="heading settled" data-level="2.7" id="navigation-document-navlist"><span class="secno">2.7. </span><span class="content">The navigation list</span><a class="self-link" href="#navigation-document-navlist"></a></h3>
+   <p>A WebBook instance MAY contain no more than one navigation list serving two purposes:</p>
+   <ol>
+    <li data-md="">
+     <p>it defines the reading order of the resources composing the WebBook</p>
+    <li data-md="">
+     <p>it defines the table of contents of the WebBook</p>
+   </ol>
+   <p>A User Agent SHOULD render a WebBook without navigation list as an empty WebBook.</p>
+   <p>If present, the navigation list is a <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element"><code>ol</code></a> html element or a <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element"><code>ul</code></a> html element, carrying the <a href="https://www.w3.org/TR/dpub-aria-1.0/#doc-toc"><code>doc-toc</code></a> role <a data-link-type="biblio" href="#biblio-dpub-aria-10">[DPUB-ARIA-1.0]</a> role and contained in the <code>body</code> element of the <a href="#navigation-document">navigation document</a>.</p>
+   <p>The collection of all hyperlinks inside that navigation list, in
+document tree traversal order, specifies the Reading Order of all the
+resources composing the WebBook.</p>
+   <p>The collection of all hyperlinks inside that navigation list, in
+document tree traversal order, that are not holding a html <a href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute">hidden</a> attribute specifies the Table of Contents of the WebBook.</p>
+   <div class="example" id="example-012969f6">
+    <a class="self-link" href="#example-012969f6"></a> 
+<pre>&lt;html lang="en">
+  &lt;head>
+    &lt;title>Moby-Dick&lt;/title>
+  &lt;/head>
+  &lt;body>
+    &lt;ul role="doc-toc">
+      &lt;li>&lt;a href="html/cover.html" hidden>Cover&lt;/a>&lt;/li>
+      &lt;li>&lt;a href="html/titlepage.html">Moby-Dick&lt;/a>&lt;/li>
+      &lt;li>&lt;a href="html/epigraph.html" hidden>EXTRACTS (Supplied by a Sub-Sub-Librarian)&lt;/a>.&lt;/li>
+      &lt;li>&lt;a href="html/chapter_001.html>Chapter 1. Loomings.&lt;/a>&lt;/li>
+      ...
+    &lt;/ul>
+  &lt;/body>
+&lt;/html>
+</pre>
+   </div>
+   <h2 class="heading settled" data-level="3" id="acks"><span class="secno">3. </span><span class="content">Acknowledgements</span><a class="self-link" href="#acks"></a></h2>
+   <p>The author would like to thank the following individuals for their
+invaluable contributions to this document throughout the numerous
+discussions he had with them: Dave Cramer, Florian Rivoal.</p>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
@@ -1716,6 +1755,8 @@ a WebBook.</p>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
+   <dt id="biblio-dpub-aria-10">[DPUB-ARIA-1.0]
+   <dd>Matt Garish; et al. <a href="https://www.w3.org/TR/dpub-aria-1.0/">Digital Publishing WAI-ARIA Module 1.0</a>. REC. URL: <a href="https://www.w3.org/TR/dpub-aria-1.0/">https://www.w3.org/TR/dpub-aria-1.0/</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-rdfa-primer">[RDFA-PRIMER]

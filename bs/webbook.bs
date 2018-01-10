@@ -103,7 +103,7 @@ rendered by a Web browser, that contains the following information:
     * a [[#navigation-document-direction|progression direction]] (optional)
     * a [[#navigation-document-identifier|unique identifier]] (optional)
     * [[#navigation-document-other-metadata|other metadata]] (optional)
-- a table of contents (optional)
+- a [[#navigation-document-navlist|navigation list]] (optional)
 - other html elements (optional)
 
 ## The title ## {#content-document-title}
@@ -237,3 +237,55 @@ a WebBook.
 &lt;/html>
 </pre>
 </div>
+
+## The navigation list ## {#navigation-document-navlist}
+
+A WebBook instance MAY contain no more than one navigation list serving two purposes:
+
+    1. it defines the reading order of the resources composing the WebBook
+
+    2. it defines the table of contents of the WebBook
+
+A User Agent SHOULD render a WebBook without navigation list as an empty WebBook.
+
+If present, the navigation list is a <a
+href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element"><code>ol</code></a>
+html element or a <a
+href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element"><code>ul</code></a>
+html element, carrying the <a
+href="https://www.w3.org/TR/dpub-aria-1.0/#doc-toc"><code>doc-toc</code></a>
+role [[!DPUB-ARIA-1.0]] role and contained in the <code>body</code>
+element of the [[#navigation-document|navigation document]].
+
+The collection of all hyperlinks inside that navigation list, in
+document tree traversal order, specifies the Reading Order of all the
+resources composing the WebBook.
+
+The collection of all hyperlinks inside that navigation list, in
+document tree traversal order, that are not holding a html <a
+href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute">hidden</a>
+attribute specifies the Table of Contents of the WebBook.
+
+<div class='example'>
+<pre>
+&lt;html lang="en">
+  &lt;head>
+    &lt;title>Moby-Dick&lt;/title>
+  &lt;/head>
+  &lt;body>
+    &lt;ul role="doc-toc">
+      &lt;li>&lt;a href="html/cover.html" hidden>Cover&lt;/a>&lt;/li>
+      &lt;li>&lt;a href="html/titlepage.html">Moby-Dick&lt;/a>&lt;/li>
+      &lt;li>&lt;a href="html/epigraph.html" hidden>EXTRACTS (Supplied by a Sub-Sub-Librarian)&lt;/a>.&lt;/li>
+      &lt;li>&lt;a href="html/chapter_001.html>Chapter 1. Loomings.&lt;/a>&lt;/li>
+      ...
+    &lt;/ul>
+  &lt;/body>
+&lt;/html>
+</pre>
+</div>
+# Acknowledgements # {#acks}
+
+The author would like to thank the following individuals for their
+invaluable contributions to this document throughout the numerous
+discussions he had with them: Dave Cramer, Florian Rivoal.

@@ -3,5 +3,12 @@
            "href": "https://pkware.cachefly.net/webdocs/APPNOTE/APPNOTE-6.3.3.TXT",
            "title": ".ZIP File Format Specification 6.3.3",
            "publisher": "PKWARE Inc."
+         },
+  "DPUB-ARIA-1.0": {
+           "authors": [ "Matt Garish", "Tzviya Siegmann", "Markus Gylling", "Shane McCarron" ],
+           "title": "Digital Publishing WAI-ARIA Module 1.0",
+           "publisher": "W3C",
+           "status": "REC",
+           "href": "https://www.w3.org/TR/dpub-aria-1.0/"
          }
 }
