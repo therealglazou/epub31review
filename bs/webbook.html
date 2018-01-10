@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 2b79dbafbd71fe3f8f4e2b9171e40a0bd49a639c" name="generator">
   <link href="https://github.com/therealglazou/epub31review/tree/master/bs" rel="canonical">
-  <meta content="959fc2e7c81526450e89dd9f01d7f2f0bb501656" name="document-revision">
+  <meta content="20d6a23cc83167a9628ffccdcced0b70ebd89640" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1363,11 +1363,15 @@ Parts of this work may be from another specification document.  If so, those par
      <ol class="toc">
       <li><a href="#reqs"><span class="secno">1.1</span> <span class="content">Requirements</span></a>
      </ol>
-    <li><a href="#instances"><span class="secno">2</span> <span class="content">WebBook instances</span></a>
     <li>
-     <a href="#navigation-document"><span class="secno">3</span> <span class="content">The navigation document</span></a>
+     <a href="#instances"><span class="secno">2</span> <span class="content">WebBook instances</span></a>
      <ol class="toc">
-      <li><a href="#metadata"><span class="secno">3.1</span> <span class="content">Metadata</span></a>
+      <li><a href="#navigation-document"><span class="secno">2.1</span> <span class="content">The navigation document</span></a>
+      <li><a href="#content-document-title"><span class="secno">2.2</span> <span class="content">The title</span></a>
+      <li><a href="#navigation-document-language"><span class="secno">2.3</span> <span class="content">The main language</span></a>
+      <li><a href="#navigation-document-direction"><span class="secno">2.4</span> <span class="content">The progression direction</span></a>
+      <li><a href="#navigation-document-identifier"><span class="secno">2.5</span> <span class="content">The identifier</span></a>
+      <li><a href="#navigation-document-other-metadata"><span class="secno">2.6</span> <span class="content">Other metadata</span></a>
      </ol>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
@@ -1401,11 +1405,11 @@ client of the Web.</p>
     <li data-md="">
      <p>one URL is enough to retrieve a remote WebBook instance, there is no need to download every resource composing that instance</p>
     <li data-md="">
-     <p>a WebBook can be unzipped in a Web site’s directory and  directly readable by a Web browser using the URL for that directory</p>
+     <p>the contents of a WebBook instance can be placed inside a Web site’s directory and are directly readable by a Web browser using the URL for that directory</p>
     <li data-md="">
-     <p>a WebBook can be unzipped in a local directory and directly readable by a Web browser opening its <code>index.html</code> topmost file</p>
+     <p>the contents of a WebBook instance can be placed inside a local directory and are directly readable by a Web browser opening its <code>index.html</code> topmost file</p>
     <li data-md="">
-     <p>each individual resource in an unzipped WebBook (on a Web site or on a local disk) is directly readable by a Web browser</p>
+     <p>each individual resource in a WebBook instance, on a Web site or on a local disk, is directly readable by a Web browser</p>
     <li data-md="">
      <p>any html document can be used as content document inside a WebBook instance, without restriction</p>
     <li data-md="">
@@ -1413,16 +1417,20 @@ client of the Web.</p>
     <li data-md="">
      <p>the navigation document and the content documents inside a WebBook instance can be created and edited by any html editor</p>
     <li data-md="">
-     <p>the metadata, spine, table of contents contained in the navigation document of a WebBook instance can be created and edited by any html editor</p>
+     <p>the metadata, table of contents contained in the navigation document of a WebBook instance can be created and edited by any html editor</p>
     <li data-md="">
-     <p>the WebBook specification (all Levels) is backwards-compatible</p>
+     <p>the WebBook specification is backwards-compatible</p>
     <li data-md="">
      <p>the WebBook specification is forwards-compatible, at the potential cost of <em>graceful degradation</em> of some content</p>
+    <li data-md="">
+     <p>WebBook instances can be recognized without having to detect their MIME type</p>
    </ol>
    <h2 class="heading settled" data-level="2" id="instances"><span class="secno">2. </span><span class="content">WebBook instances</span><a class="self-link" href="#instances"></a></h2>
-   <p>A WebBook instance is a <a data-link-type="biblio" href="#biblio-zip">[ZIP]</a> container. All files in a WebBook instance
-MUST be stored as is (no compression) or using the Deflate
-algorithm. All file and directory names must be encoded in UTF-8 <a data-link-type="biblio" href="#biblio-unicode">[UNICODE]</a>.</p>
+   <p>A WebBook instance is a <a data-link-type="biblio" href="#biblio-zip">[ZIP]</a> container. All files in a WebBook
+instance MUST be stored as is (no compression) or using the Deflate
+algorithm. All file and directory names must be encoded in UTF-8 <a data-link-type="biblio" href="#biblio-unicode">[UNICODE]</a>.  All File Names within the same directory must be unique
+following case normalization as described in section 3.13 of <a data-link-type="biblio" href="#biblio-unicode">[UNICODE]</a>. All File Names within the same directory should be
+unique following NFC or NFD normalization <a data-link-type="biblio" href="#biblio-uax15">[UAX15]</a>.</p>
    <p>The file name of a WebBook instance MUST use the <code>wbook</code> file extension.</p>
    <p>A WebBook instance MUST contain a <a href="#navigation-document">navigation document</a>.</p>
    <p>A WebBook instance and each directory inside that WebBook instance can contain
@@ -1435,8 +1443,11 @@ from its contents.</p>
 references to replaced elements, etc.) MUST be strictly relative. With
 respect to section 4.2 of <a data-link-type="biblio" href="#biblio-rfc3986">[RFC3986]</a>, only <code>path-noscheme</code> and <code>path-empty</code> are allowed for
 IRIs' <code>relative-part</code>. References to resources external to
-the WebBook instance are not restricted.</p>
-   <h2 class="heading settled" data-level="3" id="navigation-document"><span class="secno">3. </span><span class="content">The navigation document</span><a class="self-link" href="#navigation-document"></a></h2>
+the WebBook instance are not restricted. On another hand, User Agents
+(except validating User Agents) are supposed to accept Level 1 WebBook
+instances that invalid per spec because of an absolute internal
+reference; prompting the user with a warning or an error is allowed.</p>
+   <h3 class="heading settled" data-level="2.1" id="navigation-document"><span class="secno">2.1. </span><span class="content">The navigation document</span><a class="self-link" href="#navigation-document"></a></h3>
    <p>The navigation document MUST be a <a data-link-type="biblio" href="#biblio-html">[html]</a> document (HTML serialization)
 named <code>index.html</code>. The navigation document MUST be placed
 inside the topmost directory inside the containing WebBook instance.</p>
@@ -1444,27 +1455,117 @@ inside the topmost directory inside the containing WebBook instance.</p>
 rendered by a Web browser, that contains the following information:</p>
    <ul>
     <li data-md="">
-     <p><a href="#metadata">metadata</a></p>
+     <p>metadata:</p>
      <ul>
       <li data-md="">
-       <p>a title (mandatory)</p>
+       <p>a <a href="#content-document-title">title</a> (optional)</p>
       <li data-md="">
-       <p>a unique identifier (mandatory)</p>
+       <p>a <a href="#navigation-document-language">main language</a> (optional)</p>
       <li data-md="">
-       <p>a language identifier (mandatory)</p>
+       <p>a <a href="#navigation-document-direction">progression direction</a> (optional)</p>
       <li data-md="">
-       <p>other metadata (optional)</p>
+       <p>a <a href="#navigation-document-identifier">unique identifier</a> (optional)</p>
+      <li data-md="">
+       <p><a href="#navigation-document-other-metadata">other metadata</a> (optional)</p>
      </ul>
-    <li data-md="">
-     <p>a spine (mandatory)</p>
     <li data-md="">
      <p>a table of contents (optional)</p>
     <li data-md="">
-     <p>a list of landmarks (optional)</p>
-    <li data-md="">
      <p>other html elements (optional)</p>
    </ul>
-   <h3 class="heading settled" data-level="3.1" id="metadata"><span class="secno">3.1. </span><span class="content">Metadata</span><a class="self-link" href="#metadata"></a></h3>
+   <h3 class="heading settled" data-level="2.2" id="content-document-title"><span class="secno">2.2. </span><span class="content">The title</span><a class="self-link" href="#content-document-title"></a></h3>
+   <p>A WebBook instance MUST have no more than one <em>title</em>.</p>
+   <p>The title of a WebBook instance represents the title of the electronic
+book and is the title a User Agent SHOULD present to users. The title
+of a WebBook instance is contained in the html <a href="https://html.spec.whatwg.org/multipage/semantics.html#the-title-element"><code>title</code></a> element of the WebBook instance’s <a href="#navigation-document">navigation
+document</a>.</p>
+   <div class="example" id="example-ebee0104">
+    <a class="self-link" href="#example-ebee0104"></a> 
+<pre>&lt;html lang="en">
+  &lt;head>
+    &lt;title>Moby-Dick&lt;/title>
+  &lt;/head>
+  ....
+&lt;/html>
+</pre>
+   </div>
+    If the navigation document has no <code>title</code> element, the
+title of the WebBook instance is the empty string. 
+   <p>User agents should use the navigation document’s title when referring
+to the containing WebBook in their user interface. When the contents
+of a <code>title</code> element are used in this way, the <a href="https://html.spec.whatwg.org/multipage/dom.html#the-directionality">directionality</a> of that <code>title</code> element should be used to set the
+directionality of the WebBook’s title in the user interface.</p>
+   <h3 class="heading settled" data-level="2.3" id="navigation-document-language"><span class="secno">2.3. </span><span class="content">The main language</span><a class="self-link" href="#navigation-document-language"></a></h3>
+   <p>If the <a href="https://html.spec.whatwg.org/multipage/semantics.html#the-html-element">root
+element</a> of the <a href="#navigation-document">navigation document</a> of a
+given WebBook specifies a <a href="https://html.spec.whatwg.org/multipage/dom.html#attr-lang">primary
+language</a> for the navigation document, that language is also the
+primary language of that WebBook.</p>
+   <h3 class="heading settled" data-level="2.4" id="navigation-document-direction"><span class="secno">2.4. </span><span class="content">The progression direction</span><a class="self-link" href="#navigation-document-direction"></a></h3>
+   <p>If the <a href="https://html.spec.whatwg.org/multipage/semantics.html#the-html-element">root
+element</a> of the <a href="#navigation-document">navigation document</a> of a
+given WebBook specifies a <a href="https://html.spec.whatwg.org/multipage/dom.html#the-dir-attribute">direction</a> for the navigation document, that direction is also the progression
+direction of that WebBook.</p>
+   <p>If the root element of the navigation document has no drection but has
+a primary language, the progression direction of the WebBook should be
+inferred from the WebBook’s main language.</p>
+   <h3 class="heading settled" data-level="2.5" id="navigation-document-identifier"><span class="secno">2.5. </span><span class="content">The identifier</span><a class="self-link" href="#navigation-document-identifier"></a></h3>
+   <p>A WebBook MAY contain a unique identifier (no other WebBook may have
+the same identifier; multiple instances of the same WebBook can have
+the same identifier), such as a UUID, DOI or ISBN.</p>
+   <p>That identifier should be contained in a html element itself contained
+in the <a href="#navigation-document">navigation document</a> and
+expressed using <a data-link-type="biblio" href="#biblio-rdfa-primer">[rdfa-primer]</a>, for example through the <code>property</code> and <code>vocab</code> attributes.</p>
+   <div class="example" id="example-1997b79e">
+    <a class="self-link" href="#example-1997b79e"></a> 
+<pre>&lt;span property="http://purl.org/dc/elements/1.1/identifier">
+  urn:uuid:A1B0D67E-2E81-4DF5-9E67-A64CBE366809
+&lt;/span></pre>
+   </div>
+   <div class="example" id="example-7f414105">
+    <a class="self-link" href="#example-7f414105"></a> 
+<pre>&lt;span vocab="http://purl.org/dc/elements/1.1/" property="identifier">
+  urn:uuid:A1B0D67E-2E81-4DF5-9E67-A64CBE366809
+&lt;/span></pre>
+   </div>
+   <p>It’s also possible to use the <a href="https://www.w3.org/TR/rdfa-primer/#using-the-content-attribute"><code>content</code></a> attribute on a html <a href="https://html.spec.whatwg.org/multipage/semantics.html#the-meta-element"><code>meta</code></a> element but that approach makes the property not easily editable in a
+Wysiwyg editor and is therefore strongly discouraged in the context of
+a WebBook.</p>
+   <h3 class="heading settled" data-level="2.6" id="navigation-document-other-metadata"><span class="secno">2.6. </span><span class="content">Other metadata</span><a class="self-link" href="#navigation-document-other-metadata"></a></h3>
+   <p>The <a href="#navigation-document">navigation document</a> can contain any
+number of extra metadata, expressed through <a data-link-type="biblio" href="#biblio-rdfa-primer">[rdfa-primer]</a>, for
+example through the <code>property</code> and <code>vocab</code> attributes.</p>
+   <p>It’s also possible to use the <a href="https://www.w3.org/TR/rdfa-primer/#using-the-content-attribute"><code>content</code></a> attribute on a html <a href="https://html.spec.whatwg.org/multipage/semantics.html#the-meta-element"><code>meta</code></a> element but that approach makes the property not easily editable in a
+Wysiwyg editor and is therefore strongly discouraged in the context of
+a WebBook.</p>
+   <div class="example" id="example-c9af94a6">
+    <a class="self-link" href="#example-c9af94a6"></a> 
+<pre>&lt;html lang="en">
+  &lt;head>
+    &lt;title>Moby-Dick&lt;/title>
+  &lt;/head>
+  &lt;body>
+    ...
+      &lt;span property="http://purl.org/dc/elements/1.1/identifier">
+        urn:isbn:9780316000000
+      &lt;/span>
+      ...
+      &lt;span property="http://purl.org/dc/terms/modified">
+        2012-01-13T01:13:00Z
+      &lt;/span>
+      ...
+      &lt;span property="http://purl.org/dc/terms/creator">
+        Herman Melville
+      &lt;/span>
+      ....
+      &lt;span property="http://purl.org/dc/terms/contributor">
+        Dave Cramer
+      &lt;/span>
+    ...
+  &lt;/body>
+&lt;/html>
+</pre>
+   </div>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
@@ -1617,10 +1718,14 @@ rendered by a Web browser, that contains the following information:</p>
   <dl>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+   <dt id="biblio-rdfa-primer">[RDFA-PRIMER]
+   <dd>Ivan Herman; et al. <a href="https://www.w3.org/TR/rdfa-primer/">RDFa 1.1 Primer - Third Edition</a>. 17 March 2015. NOTE. URL: <a href="https://www.w3.org/TR/rdfa-primer/">https://www.w3.org/TR/rdfa-primer/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
    <dt id="biblio-rfc3986">[RFC3986]
    <dd>T. Berners-Lee; R. Fielding; L. Masinter. <a href="https://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>. January 2005. Internet Standard. URL: <a href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a>
+   <dt id="biblio-uax15">[UAX15]
+   <dd>Mark Davis; Ken Whistler. <a href="https://www.unicode.org/reports/tr15/tr15-45.html">Unicode Normalization Forms</a>. 26 May 2017. Unicode Standard Annex #15. URL: <a href="https://www.unicode.org/reports/tr15/tr15-45.html">https://www.unicode.org/reports/tr15/tr15-45.html</a>
    <dt id="biblio-unicode">[UNICODE]
    <dd><a href="https://www.unicode.org/versions/latest/">The Unicode Standard</a>. URL: <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
   </dl>
