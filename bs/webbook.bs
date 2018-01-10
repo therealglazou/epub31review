@@ -1,10 +1,12 @@
 <pre class='metadata'>
+URL: http://glazman.org/e0/webbook.html
+!Repository: <a href="https://github.com/therealglazou/epub31review/tree/master/bs/">https://github.com/therealglazou/epub31review/tree/master/bs/</a>
 Title: WebBook Level 1
 Shortname: e0
 Level: 1
-Status: W3C/UD
-Group: none
-URL: https://github.com/therealglazou/epub31review/tree/master/bs
+Status: w3c/ud
+!Warning: WORK IN PROGRESS
+Boilerplate: repository-issue-tracking off
 Editor: Daniel Glazman, Disruptive Innovations, daniel.glazman@disruptive-innovations.com
 Abstract: WebBook is a new format for electronic books, based on Web Standards only, and meant to make such books readable inside a browser.
 </pre>
@@ -169,7 +171,7 @@ the same identifier), such as a UUID, DOI or ISBN.
 
 That identifier should be contained in a html element itself contained
 in the [[#navigation-document|navigation document]] and
-expressed using [[!rdfa-primer]], for example through the
+expressed using [[rdfa-primer]], for example through the
 <code>property</code> and <code>vocab</code> attributes.
 
 <div class='example'>
@@ -197,7 +199,7 @@ a WebBook.
 ## Other metadata ## {#navigation-document-other-metadata}
 
 The [[#navigation-document|navigation document]] can contain any
-number of extra metadata, expressed through [[!rdfa-primer]], for
+number of extra metadata, expressed through [[rdfa-primer]], for
 example through the <code>property</code> and <code>vocab</code>
 attributes.
 
@@ -242,9 +244,9 @@ a WebBook.
 
 A WebBook instance MAY contain no more than one navigation list serving two purposes:
 
-    1. it defines the reading order of the resources composing the WebBook
+    1. it specifies the Reading Order of the resources composing the WebBook
 
-    2. it defines the table of contents of the WebBook
+    2. it specifies the Table of Contents of the WebBook
 
 A User Agent SHOULD render a WebBook without navigation list as an empty WebBook.
 
@@ -265,6 +267,11 @@ The collection of all hyperlinks inside that navigation list, in
 document tree traversal order, that are not holding a html <a
 href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute">hidden</a>
 attribute specifies the Table of Contents of the WebBook.
+
+User Agents can use the Reading Order to render all its resources, for
+example, in one single paginated flow. User Agents can use the Table
+of Contents for example to provide the user with an ordered collection
+of resources he/she can directly navigate to on demand.
 
 <div class='example'>
 <pre>

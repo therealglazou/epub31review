@@ -1177,8 +1177,8 @@ Possible extra rowspan handling
 	}
 </style>
   <meta content="Bikeshed version 2b79dbafbd71fe3f8f4e2b9171e40a0bd49a639c" name="generator">
-  <link href="https://github.com/therealglazou/epub31review/tree/master/bs" rel="canonical">
-  <meta content="2c85bc5a027b9f4a9e7ee5a576c695076196f386" name="document-revision">
+  <link href="http://glazman.org/e0/webbook.html" rel="canonical">
+  <meta content="5bf1b3b8cb9b9da4e0c215bc4b708f4e0a46baee" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1334,11 +1334,13 @@ pre .property::before, pre .property::after {
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
-     <dd><a class="u-url" href="https://github.com/therealglazou/epub31review/tree/master/bs">https://github.com/therealglazou/epub31review/tree/master/bs</a>
-     <dt>Issue Tracking:
-     <dd><a href="https://github.com/therealglazou/epub31review/issues/">GitHub</a>
+     <dd><a class="u-url" href="http://glazman.org/e0/webbook.html">http://glazman.org/e0/webbook.html</a>
      <dt class="editor">Editor:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:daniel.glazman@disruptive-innovations.com">Daniel Glazman</a> (<span class="p-org org">Disruptive Innovations</span>)
+     <dt>Repository:
+     <dd><a href="https://github.com/therealglazou/epub31review/tree/master/bs/">https://github.com/therealglazou/epub31review/tree/master/bs/</a>
+     <dt>Warning:
+     <dd>WORK IN PROGRESS
     </dl>
    </div>
    <div data-fill-with="warning"></div>
@@ -1572,9 +1574,9 @@ a WebBook.</p>
    <p>A WebBook instance MAY contain no more than one navigation list serving two purposes:</p>
    <ol>
     <li data-md="">
-     <p>it defines the reading order of the resources composing the WebBook</p>
+     <p>it specifies the Reading Order of the resources composing the WebBook</p>
     <li data-md="">
-     <p>it defines the table of contents of the WebBook</p>
+     <p>it specifies the Table of Contents of the WebBook</p>
    </ol>
    <p>A User Agent SHOULD render a WebBook without navigation list as an empty WebBook.</p>
    <p>If present, the navigation list is a <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element"><code>ol</code></a> html element or a <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element"><code>ul</code></a> html element, carrying the <a href="https://www.w3.org/TR/dpub-aria-1.0/#doc-toc"><code>doc-toc</code></a> role <a data-link-type="biblio" href="#biblio-dpub-aria-10">[DPUB-ARIA-1.0]</a> role and contained in the <code>body</code> element of the <a href="#navigation-document">navigation document</a>.</p>
@@ -1583,6 +1585,10 @@ document tree traversal order, specifies the Reading Order of all the
 resources composing the WebBook.</p>
    <p>The collection of all hyperlinks inside that navigation list, in
 document tree traversal order, that are not holding a html <a href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute">hidden</a> attribute specifies the Table of Contents of the WebBook.</p>
+   <p>User Agents can use the Reading Order to render all its resources, for
+example, in one single paginated flow. User Agents can use the Table
+of Contents for example to provide the user with an ordered collection
+of resources he/she can directly navigate to on demand.</p>
    <div class="example" id="example-012969f6">
     <a class="self-link" href="#example-012969f6"></a> 
 <pre>&lt;html lang="en">
@@ -1759,8 +1765,6 @@ discussions he had with them: Dave Cramer, Florian Rivoal.</p>
    <dd>Matt Garish; et al. <a href="https://www.w3.org/TR/dpub-aria-1.0/">Digital Publishing WAI-ARIA Module 1.0</a>. REC. URL: <a href="https://www.w3.org/TR/dpub-aria-1.0/">https://www.w3.org/TR/dpub-aria-1.0/</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
-   <dt id="biblio-rdfa-primer">[RDFA-PRIMER]
-   <dd>Ivan Herman; et al. <a href="https://www.w3.org/TR/rdfa-primer/">RDFa 1.1 Primer - Third Edition</a>. 17 March 2015. NOTE. URL: <a href="https://www.w3.org/TR/rdfa-primer/">https://www.w3.org/TR/rdfa-primer/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
    <dt id="biblio-rfc3986">[RFC3986]
@@ -1772,6 +1776,8 @@ discussions he had with them: Dave Cramer, Florian Rivoal.</p>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
+   <dt id="biblio-rdfa-primer">[RDFA-PRIMER]
+   <dd>Ivan Herman; et al. <a href="https://www.w3.org/TR/rdfa-primer/">RDFa 1.1 Primer - Third Edition</a>. 17 March 2015. NOTE. URL: <a href="https://www.w3.org/TR/rdfa-primer/">https://www.w3.org/TR/rdfa-primer/</a>
    <dt id="biblio-zip">[ZIP]
    <dd><a href="https://pkware.cachefly.net/webdocs/APPNOTE/APPNOTE-6.3.3.TXT">.ZIP File Format Specification 6.3.3</a>. URL: <a href="https://pkware.cachefly.net/webdocs/APPNOTE/APPNOTE-6.3.3.TXT">https://pkware.cachefly.net/webdocs/APPNOTE/APPNOTE-6.3.3.TXT</a>
   </dl>
