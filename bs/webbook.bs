@@ -90,6 +90,12 @@ the WebBook instance are not restricted. On another hand, User Agents
 instances that invalid per spec because of an absolute internal
 reference; prompting the user with a warning or an error is allowed.
 
+<div class='example'>
+<p>An example of Moby Dick packaged as a WebBook can be found in the <a
+href="https://github.com/therealglazou/epub31review/tree/master/bs/samples">repository</a>
+for the current document.</p>
+</div>
+
 ## The navigation document ## {#navigation-document}
 
 The navigation document MUST be a [[!html]] document (HTML serialization)
