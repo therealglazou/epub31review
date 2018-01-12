@@ -42,7 +42,7 @@ The following requirements are the basis for the technical choices in this speci
 
     2. the contents of a WebBook instance can be placed inside a Web site's directory and are directly readable by a Web browser using the URL for that directory
 
-    3. the contents of a WebBook instance can be placed inside a local directory and are directly readable by a Web browser opening its <code>index.html</code> or  <code>index.xhtml</code>topmost file
+    3. the contents of a WebBook instance can be placed inside a local directory and are directly readable by a Web browser opening its <code>index.html</code> or  <code>index.xhtml</code> topmost file
 
     4. each individual resource in a WebBook instance, on a Web site or on a local disk, is directly readable by a Web browser
 
