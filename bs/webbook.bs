@@ -182,7 +182,7 @@ the same identifier), such as a UUID, DOI or ISBN.
 
 That identifier should be contained in a html element itself contained
 in the [[#navigation-document|navigation document]] and
-expressed using [[rdfa-primer]], for example through the
+expressed using [[RDFA-PRIMER]], for example through the
 <code>property</code> and <code>vocab</code> attributes.
 
 <div class='example'>
@@ -210,7 +210,7 @@ a WebBook.
 ## Other metadata ## {#navigation-document-other-metadata}
 
 The [[#navigation-document|navigation document]] can contain any
-number of extra metadata, expressed through [[rdfa-primer]], for
+number of extra metadata, expressed through [[RDFA-PRIMER]], for
 example through the <code>property</code> and <code>vocab</code>
 attributes.
 
