@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 2b79dbafbd71fe3f8f4e2b9171e40a0bd49a639c" name="generator">
   <link href="http://glazman.org/e0/webbook.html" rel="canonical">
-  <meta content="c394640dcacc4ff2d164ac856b0a319af56d2e8f" name="document-revision">
+  <meta content="0aa7f6099f7b8144783dfa1194a5772e0b66668b" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1446,21 +1446,18 @@ Media Type</a> <a data-link-type="biblio" href="#biblio-epub-ocf301">[EPUB-OCF30
    <p>A WebBook instance MUST contain a <a href="#navigation-document">navigation document</a>.</p>
    <p>A WebBook instance and each directory inside that WebBook instance can contain
 any number of files and directories. All files inside a WebBook instance
-MUST have a file extension to ensure all User Agents (including Web
+SHOULD have a file extension to ensure all User Agents (including Web
 browsers) can render the file if necessary even if no HTTP header is
 present or if the User Agent cannot determine the type of the file
 from its contents.</p>
    <p>Inside a WebBook Level 1 instance, all internal references (links,
-references to replaced elements, etc.) MUST be strictly relative. With
+references to replaced elements, etc.) SHOULD be strictly relative. With
 respect to section 4.2 of <a data-link-type="biblio" href="#biblio-rfc3986">[RFC3986]</a>, only <code>path-noscheme</code> and <code>path-empty</code> are allowed for
 IRIs' <code>relative-part</code>. References to resources external to
-the WebBook instance are not restricted. On another hand, User Agents
-(except validating User Agents) are supposed to accept Level 1 WebBook
-instances that invalid per spec because of an absolute internal
-reference; prompting the user with a warning or an error is allowed.</p>
-   <div class="example" id="example-4cf80131">
-    <a class="self-link" href="#example-4cf80131"></a> 
-    <p>An example of Moby Dick packaged as a WebBook can be found in the <a href="https://github.com/therealglazou/epub31review/tree/master/bs/samples">repository</a> for the current document.</p>
+the WebBook instance are not restricted.</p>
+   <div class="example" id="example-1ea0223a">
+    <a class="self-link" href="#example-1ea0223a"></a> 
+    <p>An example of Moby Dick packaged as a WebBook can be found <a href="http://glazman.org/e0/samples/">there.</a></p>
    </div>
    <h3 class="heading settled" data-level="2.1" id="navigation-document"><span class="secno">2.1. </span><span class="content">The navigation document</span><a class="self-link" href="#navigation-document"></a></h3>
    <p>The navigation document MUST be a <a data-link-type="biblio" href="#biblio-html">[html]</a> document named <code>index.html</code> if its serialization is HTML and <code>index.xhtml</code> if its serialization is XML. The navigation
@@ -1489,7 +1486,6 @@ rendered by a Web browser, that contains the following information:</p>
      <p>other html elements (optional)</p>
    </ul>
    <h3 class="heading settled" data-level="2.2" id="content-document-title"><span class="secno">2.2. </span><span class="content">The title</span><a class="self-link" href="#content-document-title"></a></h3>
-   <p>A WebBook instance MUST have no more than one <em>title</em>.</p>
    <p>The title of a WebBook instance represents the title of the electronic
 book and is the title a User Agent SHOULD present to users. The title
 of a WebBook instance is contained in the html <a href="https://html.spec.whatwg.org/multipage/semantics.html#the-title-element"><code>title</code></a> element of the WebBook instance’s <a href="#navigation-document">navigation
@@ -1635,16 +1631,18 @@ the following instructions:</p>
        <p>placed inside the topmost directory of the package</p>
      </ol>
     <li data-md="">
-     <p>update all links and references to extra resources inside the Navigation Document to reflect the new location of the file inside the package (if needed)</p>
+     <p>update all links and references to extra resources inside the Navigation Document to reflect the new name and location of the file inside the package (if needed)</p>
     <li data-md="">
      <p>add the <code>role</code> attribute with value <code>doc-toc</code> to the <a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#sec-xhtml-nav-def-types-toc"><code>toc nav</code></a> element of the Navigation Document</p>
     <li data-md="">
-     <p>update the <a href="http://www.idpf.org/epub/301/spec/epub-publications.html#sec-item-elem">reference to the Navigation Document in the manifest of the Package Document</a> <a data-link-type="biblio" href="#biblio-epub-publications301">[EPUB-PUBLICATIONS301]</a> of the package to reflect the new location of the file inside the package (if needed)</p>
+     <p>update the <a href="http://www.idpf.org/epub/301/spec/epub-publications.html#sec-item-elem">reference to the Navigation Document in the manifest of the Package Document</a> <a data-link-type="biblio" href="#biblio-epub-publications301">[EPUB-PUBLICATIONS301]</a> of the package to reflect the new name and location of the file inside the package (if needed)</p>
+    <li data-md="">
+     <p>update references to the Navigation Document inside other <a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#sec-contentdocs">Content Documents</a> <a data-link-type="biblio" href="#biblio-epub-contentdocs301">[EPUB-CONTENTDOCS301]</a> of the package to reflect the new name and location of the file inside the package (if needed)</p>
    </ol>
-   <div class="example" id="example-3373c16b">
-    <a class="self-link" href="#example-3373c16b"></a> 
+   <div class="example" id="example-e9408472">
+    <a class="self-link" href="#example-e9408472"></a> 
     <p>An example of Moby Dick packaged in conformance to both
-this specification and EPUB 3.0.1 can be found in the <a href="https://github.com/therealglazou/epub31review/tree/master/bs/samples">repository</a> for the current document.</p>
+this specification and EPUB 3.0.1 can be found <a href="http://glazman.org/e0/samples/">there</a>.</p>
    </div>
    <h2 class="heading settled" data-level="4" id="acks"><span class="secno">4. </span><span class="content">Acknowledgements</span><a class="self-link" href="#acks"></a></h2>
    <p>The author would like to thank the following individuals for their
@@ -1803,7 +1801,7 @@ discussions he had with them: Dave Cramer, Florian Rivoal.</p>
    <dt id="biblio-dpub-aria-10">[DPUB-ARIA-1.0]
    <dd>Matt Garish; et al. <a href="https://www.w3.org/TR/dpub-aria-1.0/">Digital Publishing WAI-ARIA Module 1.0</a>. REC. URL: <a href="https://www.w3.org/TR/dpub-aria-1.0/">https://www.w3.org/TR/dpub-aria-1.0/</a>
    <dt id="biblio-epub-contentdocs301">[EPUB-CONTENTDOCS301]
-   <dd><a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html">EPUB Content Dpcuments 3.0.1</a>. Recommended Specification. URL: <a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html">http://www.idpf.org/epub/301/spec/epub-contentdocs.html</a>
+   <dd><a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html">EPUB Content Documents 3.0.1</a>. Recommended Specification. URL: <a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html">http://www.idpf.org/epub/301/spec/epub-contentdocs.html</a>
    <dt id="biblio-epub-ocf301">[EPUB-OCF301]
    <dd><a href="http://www.idpf.org/epub/301/spec/epub-ocf.html">EPUB Open Container Format (OCF) 3.0.1</a>. Recommended Specification. URL: <a href="http://www.idpf.org/epub/301/spec/epub-ocf.html">http://www.idpf.org/epub/301/spec/epub-ocf.html</a>
    <dt id="biblio-epub-publications301">[EPUB-PUBLICATIONS301]

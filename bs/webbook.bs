@@ -84,25 +84,21 @@ A WebBook instance MUST contain a [[#navigation-document|navigation document]].
 
 A WebBook instance and each directory inside that WebBook instance can contain
 any number of files and directories. All files inside a WebBook instance
-MUST have a file extension to ensure all User Agents (including Web
+SHOULD have a file extension to ensure all User Agents (including Web
 browsers) can render the file if necessary even if no HTTP header is
 present or if the User Agent cannot determine the type of the file
 from its contents.
 
 Inside a WebBook Level 1 instance, all internal references (links,
-references to replaced elements, etc.) MUST be strictly relative. With
+references to replaced elements, etc.) SHOULD be strictly relative. With
 respect to section 4.2 of [[!RFC3986]], only
 <code>path-noscheme</code> and <code>path-empty</code> are allowed for
 IRIs' <code>relative-part</code>. References to resources external to
-the WebBook instance are not restricted. On another hand, User Agents
-(except validating User Agents) are supposed to accept Level 1 WebBook
-instances that invalid per spec because of an absolute internal
-reference; prompting the user with a warning or an error is allowed.
+the WebBook instance are not restricted.
 
 <div class='example'>
-<p>An example of Moby Dick packaged as a WebBook can be found in the <a
-href="https://github.com/therealglazou/epub31review/tree/master/bs/samples">repository</a>
-for the current document.</p>
+<p>An example of Moby Dick packaged as a WebBook can be found <a
+href="http://glazman.org/e0/samples/">there.</a></p>
 </div>
 
 ## The navigation document ## {#navigation-document}
@@ -126,8 +122,6 @@ rendered by a Web browser, that contains the following information:
 - other html elements (optional)
 
 ## The title ## {#content-document-title}
-
-A WebBook instance MUST have no more than one <em>title</em>.
 
 The title of a WebBook instance represents the title of the electronic
 book and is the title a User Agent SHOULD present to users. The title
@@ -320,14 +314,14 @@ the following instructions:
     1. modify the EPUB package so its <a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#sec-xhtml-nav">Navigation Document</a> [[!EPUB-CONTENTDOCS301]] is now:
         1. named <code>index.xhtml</code>
         2. placed inside the topmost directory of the package
-    2. update all links and references to extra resources inside the Navigation Document to reflect the new location of the file inside the package (if needed)
+    2. update all links and references to extra resources inside the Navigation Document to reflect the new name and location of the file inside the package (if needed)
     3. add the <code>role</code> attribute with value <code>doc-toc</code> to the <a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#sec-xhtml-nav-def-types-toc"><code>toc nav</code></a> element of the Navigation Document
-    4. update the <a href="http://www.idpf.org/epub/301/spec/epub-publications.html#sec-item-elem">reference to the Navigation Document in the manifest of the Package Document</a> [[!EPUB-PUBLICATIONS301]] of the package to reflect the new location of the file inside the package (if needed)
+    4. update the <a href="http://www.idpf.org/epub/301/spec/epub-publications.html#sec-item-elem">reference to the Navigation Document in the manifest of the Package Document</a> [[!EPUB-PUBLICATIONS301]] of the package to reflect the new name and location of the file inside the package (if needed)
+    5. update references to the Navigation Document inside other <a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#sec-contentdocs">Content Documents</a> [[!EPUB-CONTENTDOCS301]] of the package to reflect the new name and location of the file inside the package (if needed)
 
 <div class='example'> <p>An example of Moby Dick packaged in conformance to both
-this specification and EPUB 3.0.1 can be found in the <a
-href="https://github.com/therealglazou/epub31review/tree/master/bs/samples">repository</a>
-for the current document.</p> </div>
+this specification and EPUB 3.0.1 can be found <a
+href="http://glazman.org/e0/samples/">there</a>.</p></div>
 
 # Acknowledgements # {#acks}
 
