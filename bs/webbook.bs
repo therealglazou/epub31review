@@ -7,7 +7,8 @@ Level: 1
 Status: w3c/ud
 !Warning: WORK IN PROGRESS
 Boilerplate: repository-issue-tracking off
-Editor: Daniel Glazman, Disruptive Innovations, daniel.glazman@disruptive-innovations.com
+!Author: Daniel Glazman, Disruptive Innovations
+No Editor: yes
 Abstract: WebBook is a new format for electronic books, based on Web Standards only, and meant to make such books readable inside a browser.
 </pre>
 
