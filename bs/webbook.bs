@@ -268,14 +268,17 @@ href="https://www.w3.org/TR/dpub-aria-1.0/#doc-toc"><code>doc-toc</code></a>
 role [[!DPUB-ARIA-1.0]] role and contained in the <code>body</code>
 element of the [[#navigation-document|navigation document]].
 
-The collection of all hyperlinks inside navigation data,
-document tree traversal order, specifies the Reading Order of all the
-resources composing the WebBook.
+The collection of all hyperlinks (<code>a</code> elements) inside
+navigation data, in document tree traversal order, specifies the
+Reading Order of all the resources composing the WebBook.
 
-The collection of all hyperlinks inside navigation data, in
-document tree traversal order, that are not holding a html <a
+The collection of all hyperlinks (<code>a</code> elements) inside
+navigation data having no <a
+href="https://dom.spec.whatwg.org/#concept-tree-inclusive-ancestor">inclusive
+ancestor</a> [[!DOM]] holding a html <a
 href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute">hidden</a>
-attribute specifies the Table of Contents of the WebBook.
+attribute, in document tree traversal order, specifies the Table of
+Contents of the WebBook.
 
 User Agents can use the Reading Order to render all its resources, for
 example, in one single paginated flow. User Agents can use the Table

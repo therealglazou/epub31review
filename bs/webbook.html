@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 2b79dbafbd71fe3f8f4e2b9171e40a0bd49a639c" name="generator">
   <link href="http://glazman.org/e0/webbook.html" rel="canonical">
-  <meta content="a553ed11742f1ed8cb8179b964082aa8c5bb067d" name="document-revision">
+  <meta content="4721b51df2dbd0b1b0622318e584d28e2577611d" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1587,11 +1587,13 @@ a WebBook.</p>
    </ol>
    <p>A User Agent SHOULD render a WebBook without navigation data as an empty WebBook.</p>
    <p>If present, navigation data are a <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-nav-element"><code>nav</code></a> html element carrying the <a href="https://www.w3.org/TR/dpub-aria-1.0/#doc-toc"><code>doc-toc</code></a> role <a data-link-type="biblio" href="#biblio-dpub-aria-10">[DPUB-ARIA-1.0]</a> role and contained in the <code>body</code> element of the <a href="#navigation-document">navigation document</a>.</p>
-   <p>The collection of all hyperlinks inside navigation data,
-document tree traversal order, specifies the Reading Order of all the
-resources composing the WebBook.</p>
-   <p>The collection of all hyperlinks inside navigation data, in
-document tree traversal order, that are not holding a html <a href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute">hidden</a> attribute specifies the Table of Contents of the WebBook.</p>
+   <p>The collection of all hyperlinks (<code>a</code> elements) inside
+navigation data, in document tree traversal order, specifies the
+Reading Order of all the resources composing the WebBook.</p>
+   <p>The collection of all hyperlinks (<code>a</code> elements) inside
+navigation data having no <a href="https://dom.spec.whatwg.org/#concept-tree-inclusive-ancestor">inclusive
+ancestor</a> <a data-link-type="biblio" href="#biblio-dom">[DOM]</a> holding a html <a href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute">hidden</a> attribute, in document tree traversal order, specifies the Table of
+Contents of the WebBook.</p>
    <p>User Agents can use the Reading Order to render all its resources, for
 example, in one single paginated flow. User Agents can use the Table
 of Contents for example to provide the user with an ordered collection
@@ -1798,6 +1800,8 @@ discussions he had with them: Dave Cramer, Florian Rivoal.</p>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
+   <dt id="biblio-dom">[DOM]
+   <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/">DOM Standard</a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
    <dt id="biblio-dpub-aria-10">[DPUB-ARIA-1.0]
    <dd>Matt Garish; et al. <a href="https://www.w3.org/TR/dpub-aria-1.0/">Digital Publishing WAI-ARIA Module 1.0</a>. REC. URL: <a href="https://www.w3.org/TR/dpub-aria-1.0/">https://www.w3.org/TR/dpub-aria-1.0/</a>
    <dt id="biblio-epub-contentdocs301">[EPUB-CONTENTDOCS301]
