@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 2b79dbafbd71fe3f8f4e2b9171e40a0bd49a639c" name="generator">
   <link href="http://glazman.org/e0/webbook.html" rel="canonical">
-  <meta content="c91258e25da690d94e157f549656d9da51389cfb" name="document-revision">
+  <meta content="c394640dcacc4ff2d164ac856b0a319af56d2e8f" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1330,7 +1330,7 @@ pre .property::before, pre .property::after {
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebBook Level 1</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Unofficial Proposal Draft, <time class="dt-updated" datetime="2018-01-11">11 January 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Unofficial Proposal Draft, <time class="dt-updated" datetime="2018-01-12">12 January 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1346,7 +1346,7 @@ pre .property::before, pre .property::after {
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 11 January 2018,
+In addition, as of 12 January 2018,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1374,9 +1374,10 @@ Parts of this work may be from another specification document.  If so, those par
       <li><a href="#navigation-document-direction"><span class="secno">2.4</span> <span class="content">The progression direction</span></a>
       <li><a href="#navigation-document-identifier"><span class="secno">2.5</span> <span class="content">The identifier</span></a>
       <li><a href="#navigation-document-other-metadata"><span class="secno">2.6</span> <span class="content">Other metadata</span></a>
-      <li><a href="#navigation-document-navlist"><span class="secno">2.7</span> <span class="content">The navigation list</span></a>
+      <li><a href="#navigation-document-navdata"><span class="secno">2.7</span> <span class="content">Navigation data</span></a>
      </ol>
-    <li><a href="#acks"><span class="secno">3</span> <span class="content">Acknowledgements</span></a>
+    <li><a href="#epub-compat"><span class="secno">3</span> <span class="content">Compatibility with EPUB 3.0.1</span></a>
+    <li><a href="#acks"><span class="secno">4</span> <span class="content">Acknowledgements</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
@@ -1428,6 +1429,8 @@ client of the Web.</p>
      <p>the WebBook specification is forwards-compatible, at the potential cost of <em>graceful degradation</em> of some content</p>
     <li data-md="">
      <p>WebBook instances can be recognized without having to detect their MIME type</p>
+    <li data-md="">
+     <p>it’s possible to deliver electronic books in a form that is compatible with both this specification and <a data-link-type="biblio" href="#biblio-epub301">[EPUB301]</a></p>
    </ol>
    <h2 class="heading settled" data-level="2" id="instances"><span class="secno">2. </span><span class="content">WebBook instances</span><a class="self-link" href="#instances"></a></h2>
    <p>A WebBook instance is a <a data-link-type="biblio" href="#biblio-zip">[ZIP]</a> container. All files in a WebBook
@@ -1435,7 +1438,11 @@ instance MUST be stored as is (no compression) or using the Deflate
 algorithm. All file and directory names must be encoded in UTF-8 <a data-link-type="biblio" href="#biblio-unicode">[UNICODE]</a>.  All File Names within the same directory must be unique
 following case normalization as described in section 3.13 of <a data-link-type="biblio" href="#biblio-unicode">[UNICODE]</a>. All File Names within the same directory should be
 unique following NFC or NFD normalization <a data-link-type="biblio" href="#biblio-uax15">[UAX15]</a>.</p>
-   <p>The file name of a WebBook instance MUST use the <code>wbook</code> file extension.</p>
+   <p>The file name of a WebBook instance SHOULD use the <code>wbook</code> file extension, unless <a href="#epub-compat">compatibility</a> with <a data-link-type="biblio" href="#biblio-epub301">[EPUB301]</a> is added; in that case, the <code>epub</code> file
+extension is recommended.  User Agents should always treat a zipped
+package with file extension <code>wbook</code> or <code>epub</code> or
+using the <a href="http://www.idpf.org/epub/301/spec/epub-ocf.html#app-media-type">EPUB
+Media Type</a> <a data-link-type="biblio" href="#biblio-epub-ocf301">[EPUB-OCF301]</a> as a potential WebBook.</p>
    <p>A WebBook instance MUST contain a <a href="#navigation-document">navigation document</a>.</p>
    <p>A WebBook instance and each directory inside that WebBook instance can contain
 any number of files and directories. All files inside a WebBook instance
@@ -1456,9 +1463,9 @@ reference; prompting the user with a warning or an error is allowed.</p>
     <p>An example of Moby Dick packaged as a WebBook can be found in the <a href="https://github.com/therealglazou/epub31review/tree/master/bs/samples">repository</a> for the current document.</p>
    </div>
    <h3 class="heading settled" data-level="2.1" id="navigation-document"><span class="secno">2.1. </span><span class="content">The navigation document</span><a class="self-link" href="#navigation-document"></a></h3>
-   <p>The navigation document MUST be a <a data-link-type="biblio" href="#biblio-html">[html]</a> document (HTML serialization)
-named <code>index.html</code>. The navigation document MUST be placed
-inside the topmost directory inside the containing WebBook instance.</p>
+   <p>The navigation document MUST be a <a data-link-type="biblio" href="#biblio-html">[html]</a> document named <code>index.html</code> if its serialization is HTML and <code>index.xhtml</code> if its serialization is XML. The navigation
+document MUST be placed inside the topmost directory inside the
+containing WebBook instance.</p>
    <p>The navigation document is a regular html document, intended to be
 rendered by a Web browser, that contains the following information:</p>
    <ul>
@@ -1477,7 +1484,7 @@ rendered by a Web browser, that contains the following information:</p>
        <p><a href="#navigation-document-other-metadata">other metadata</a> (optional)</p>
      </ul>
     <li data-md="">
-     <p>a <a href="#navigation-document-navlist">navigation list</a> (optional)</p>
+     <p><a href="#navigation-document-navdata">navigation data</a> (optional)</p>
     <li data-md="">
      <p>other html elements (optional)</p>
    </ul>
@@ -1574,44 +1581,72 @@ a WebBook.</p>
 &lt;/html>
 </pre>
    </div>
-   <h3 class="heading settled" data-level="2.7" id="navigation-document-navlist"><span class="secno">2.7. </span><span class="content">The navigation list</span><a class="self-link" href="#navigation-document-navlist"></a></h3>
-   <p>A WebBook instance MAY contain no more than one navigation list serving two purposes:</p>
+   <h3 class="heading settled" data-level="2.7" id="navigation-document-navdata"><span class="secno">2.7. </span><span class="content">Navigation data</span><a class="self-link" href="#navigation-document-navdata"></a></h3>
+   <p>A WebBook instance MAY contain no more than one collection of navigation data serving two purposes:</p>
    <ol>
     <li data-md="">
      <p>it specifies the Reading Order of the resources composing the WebBook</p>
     <li data-md="">
      <p>it specifies the Table of Contents of the WebBook</p>
    </ol>
-   <p>A User Agent SHOULD render a WebBook without navigation list as an empty WebBook.</p>
-   <p>If present, the navigation list is a <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element"><code>ol</code></a> html element or a <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element"><code>ul</code></a> html element, carrying the <a href="https://www.w3.org/TR/dpub-aria-1.0/#doc-toc"><code>doc-toc</code></a> role <a data-link-type="biblio" href="#biblio-dpub-aria-10">[DPUB-ARIA-1.0]</a> role and contained in the <code>body</code> element of the <a href="#navigation-document">navigation document</a>.</p>
-   <p>The collection of all hyperlinks inside that navigation list, in
+   <p>A User Agent SHOULD render a WebBook without navigation data as an empty WebBook.</p>
+   <p>If present, navigation data are a <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-nav-element"><code>nav</code></a> html element carrying the <a href="https://www.w3.org/TR/dpub-aria-1.0/#doc-toc"><code>doc-toc</code></a> role <a data-link-type="biblio" href="#biblio-dpub-aria-10">[DPUB-ARIA-1.0]</a> role and contained in the <code>body</code> element of the <a href="#navigation-document">navigation document</a>.</p>
+   <p>The collection of all hyperlinks inside navigation data,
 document tree traversal order, specifies the Reading Order of all the
 resources composing the WebBook.</p>
-   <p>The collection of all hyperlinks inside that navigation list, in
+   <p>The collection of all hyperlinks inside navigation data, in
 document tree traversal order, that are not holding a html <a href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute">hidden</a> attribute specifies the Table of Contents of the WebBook.</p>
    <p>User Agents can use the Reading Order to render all its resources, for
 example, in one single paginated flow. User Agents can use the Table
 of Contents for example to provide the user with an ordered collection
 of resources he/she can directly navigate to on demand.</p>
-   <div class="example" id="example-012969f6">
-    <a class="self-link" href="#example-012969f6"></a> 
+   <div class="example" id="example-58f09892">
+    <a class="self-link" href="#example-58f09892"></a> 
 <pre>&lt;html lang="en">
   &lt;head>
     &lt;title>Moby-Dick&lt;/title>
   &lt;/head>
   &lt;body>
-    &lt;ul role="doc-toc">
-      &lt;li>&lt;a href="html/cover.html" hidden>Cover&lt;/a>&lt;/li>
-      &lt;li>&lt;a href="html/titlepage.html">Moby-Dick&lt;/a>&lt;/li>
-      &lt;li>&lt;a href="html/epigraph.html" hidden>EXTRACTS (Supplied by a Sub-Sub-Librarian)&lt;/a>.&lt;/li>
-      &lt;li>&lt;a href="html/chapter_001.html>Chapter 1. Loomings.&lt;/a>&lt;/li>
-      ...
-    &lt;/ul>
+    &lt;nav role="doc-toc">
+      &lt;ul>
+        &lt;li>&lt;a href="html/cover.html" hidden>Cover&lt;/a>&lt;/li>
+        &lt;li>&lt;a href="html/titlepage.html">Moby-Dick&lt;/a>&lt;/li>
+        &lt;li>&lt;a href="html/epigraph.html" hidden>EXTRACTS (Supplied by a Sub-Sub-Librarian)&lt;/a>.&lt;/li>
+        &lt;li>&lt;a href="html/chapter_001.html>Chapter 1. Loomings.&lt;/a>&lt;/li>
+        ...
+      &lt;/ul>
+    &lt;/nav>
   &lt;/body>
 &lt;/html>
 </pre>
    </div>
-   <h2 class="heading settled" data-level="3" id="acks"><span class="secno">3. </span><span class="content">Acknowledgements</span><a class="self-link" href="#acks"></a></h2>
+   <h2 class="heading settled" data-level="3" id="epub-compat"><span class="secno">3. </span><span class="content">Compatibility with EPUB 3.0.1</span><a class="self-link" href="#epub-compat"></a></h2>
+   <p><em>This section is informative.</em></p>
+   <p>It is easily possible to turn a valid <a data-link-type="biblio" href="#biblio-epub301">[EPUB301]</a> package
+into a WebBook, retaining full compatibility with <a data-link-type="biblio" href="#biblio-epub301">[EPUB301]</a>, using
+the following instructions:</p>
+   <ol>
+    <li data-md="">
+     <p>modify the EPUB package so its <a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#sec-xhtml-nav">Navigation Document</a> <a data-link-type="biblio" href="#biblio-epub-contentdocs301">[EPUB-CONTENTDOCS301]</a> is now:</p>
+     <ol>
+      <li data-md="">
+       <p>named <code>index.xhtml</code></p>
+      <li data-md="">
+       <p>placed inside the topmost directory of the package</p>
+     </ol>
+    <li data-md="">
+     <p>update all links and references to extra resources inside the Navigation Document to reflect the new location of the file inside the package (if needed)</p>
+    <li data-md="">
+     <p>add the <code>role</code> attribute with value <code>doc-toc</code> to the <a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#sec-xhtml-nav-def-types-toc"><code>toc nav</code></a> element of the Navigation Document</p>
+    <li data-md="">
+     <p>update the <a href="http://www.idpf.org/epub/301/spec/epub-publications.html#sec-item-elem">reference to the Navigation Document in the manifest of the Package Document</a> <a data-link-type="biblio" href="#biblio-epub-publications301">[EPUB-PUBLICATIONS301]</a> of the package to reflect the new location of the file inside the package (if needed)</p>
+   </ol>
+   <div class="example" id="example-3373c16b">
+    <a class="self-link" href="#example-3373c16b"></a> 
+    <p>An example of Moby Dick packaged in conformance to both
+this specification and EPUB 3.0.1 can be found in the <a href="https://github.com/therealglazou/epub31review/tree/master/bs/samples">repository</a> for the current document.</p>
+   </div>
+   <h2 class="heading settled" data-level="4" id="acks"><span class="secno">4. </span><span class="content">Acknowledgements</span><a class="self-link" href="#acks"></a></h2>
    <p>The author would like to thank the following individuals for their
 invaluable contributions to this document throughout the numerous
 discussions he had with them: Dave Cramer, Florian Rivoal.</p>
@@ -1767,6 +1802,14 @@ discussions he had with them: Dave Cramer, Florian Rivoal.</p>
   <dl>
    <dt id="biblio-dpub-aria-10">[DPUB-ARIA-1.0]
    <dd>Matt Garish; et al. <a href="https://www.w3.org/TR/dpub-aria-1.0/">Digital Publishing WAI-ARIA Module 1.0</a>. REC. URL: <a href="https://www.w3.org/TR/dpub-aria-1.0/">https://www.w3.org/TR/dpub-aria-1.0/</a>
+   <dt id="biblio-epub-contentdocs301">[EPUB-CONTENTDOCS301]
+   <dd><a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html">EPUB Content Dpcuments 3.0.1</a>. Recommended Specification. URL: <a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html">http://www.idpf.org/epub/301/spec/epub-contentdocs.html</a>
+   <dt id="biblio-epub-ocf301">[EPUB-OCF301]
+   <dd><a href="http://www.idpf.org/epub/301/spec/epub-ocf.html">EPUB Open Container Format (OCF) 3.0.1</a>. Recommended Specification. URL: <a href="http://www.idpf.org/epub/301/spec/epub-ocf.html">http://www.idpf.org/epub/301/spec/epub-ocf.html</a>
+   <dt id="biblio-epub-publications301">[EPUB-PUBLICATIONS301]
+   <dd><a href="http://www.idpf.org/epub/301/spec/epub-publications.html">EPUB Publications 3.0.1</a>. Recommended Specification. URL: <a href="http://www.idpf.org/epub/301/spec/epub-publications.html">http://www.idpf.org/epub/301/spec/epub-publications.html</a>
+   <dt id="biblio-epub301">[EPUB301]
+   <dd><a href="http://www.idpf.org/epub/301/spec/epub-overview.html">EPUB 3.0.1</a>. Recommended Specification. URL: <a href="http://www.idpf.org/epub/301/spec/epub-overview.html">http://www.idpf.org/epub/301/spec/epub-overview.html</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-rfc2119">[RFC2119]

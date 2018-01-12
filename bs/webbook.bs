@@ -59,6 +59,8 @@ The following requirements are the basis for the technical choices in this speci
 
     11. WebBook instances can be recognized without having to detect their MIME type
 
+    12. it's possible to deliver electronic books in a form that is compatible with both this specification and [[!EPUB301]]
+
 # WebBook instances  # {#instances}
 
 A WebBook instance is a [[ZIP]] container. All files in a WebBook
@@ -69,7 +71,14 @@ following case normalization as described in section 3.13 of
 [[!UNICODE]]. All File Names within the same directory should be
 unique following NFC or NFD normalization [[!UAX15]].
 
-The file name of a WebBook instance MUST use the <code>wbook</code> file extension.
+The file name of a WebBook instance SHOULD use the <code>wbook</code>
+file extension, unless [[#epub-compat|compatibility]] with
+[[!EPUB301]] is added; in that case, the <code>epub</code> file
+extension is recommended.  User Agents should always treat a zipped
+package with file extension <code>wbook</code> or <code>epub</code> or
+using the <a
+href="http://www.idpf.org/epub/301/spec/epub-ocf.html#app-media-type">EPUB
+Media Type</a> [[!EPUB-OCF301]] as a potential WebBook.
 
 A WebBook instance MUST contain a [[#navigation-document|navigation document]].
 
@@ -98,9 +107,11 @@ for the current document.</p>
 
 ## The navigation document ## {#navigation-document}
 
-The navigation document MUST be a [[!html]] document (HTML serialization)
-named <code>index.html</code>. The navigation document MUST be placed
-inside the topmost directory inside the containing WebBook instance.
+The navigation document MUST be a [[!html]] document named
+<code>index.html</code> if its serialization is HTML and
+<code>index.xhtml</code> if its serialization is XML. The navigation
+document MUST be placed inside the topmost directory inside the
+containing WebBook instance.
 
 The navigation document is a regular html document, intended to be
 rendered by a Web browser, that contains the following information:
@@ -111,7 +122,7 @@ rendered by a Web browser, that contains the following information:
     * a [[#navigation-document-direction|progression direction]] (optional)
     * a [[#navigation-document-identifier|unique identifier]] (optional)
     * [[#navigation-document-other-metadata|other metadata]] (optional)
-- a [[#navigation-document-navlist|navigation list]] (optional)
+- [[#navigation-document-navdata|navigation data]] (optional)
 - other html elements (optional)
 
 ## The title ## {#content-document-title}
@@ -246,30 +257,28 @@ a WebBook.
 </pre>
 </div>
 
-## The navigation list ## {#navigation-document-navlist}
+## Navigation data ## {#navigation-document-navdata}
 
-A WebBook instance MAY contain no more than one navigation list serving two purposes:
+A WebBook instance MAY contain no more than one collection of navigation data serving two purposes:
 
     1. it specifies the Reading Order of the resources composing the WebBook
 
     2. it specifies the Table of Contents of the WebBook
 
-A User Agent SHOULD render a WebBook without navigation list as an empty WebBook.
+A User Agent SHOULD render a WebBook without navigation data as an empty WebBook.
 
-If present, the navigation list is a <a
-href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element"><code>ol</code></a>
-html element or a <a
-href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element"><code>ul</code></a>
-html element, carrying the <a
+If present, navigation data are a <a
+href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-nav-element"><code>nav</code></a>
+html element carrying the <a
 href="https://www.w3.org/TR/dpub-aria-1.0/#doc-toc"><code>doc-toc</code></a>
 role [[!DPUB-ARIA-1.0]] role and contained in the <code>body</code>
 element of the [[#navigation-document|navigation document]].
 
-The collection of all hyperlinks inside that navigation list, in
+The collection of all hyperlinks inside navigation data,
 document tree traversal order, specifies the Reading Order of all the
 resources composing the WebBook.
 
-The collection of all hyperlinks inside that navigation list, in
+The collection of all hyperlinks inside navigation data, in
 document tree traversal order, that are not holding a html <a
 href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute">hidden</a>
 attribute specifies the Table of Contents of the WebBook.
@@ -286,17 +295,40 @@ of resources he/she can directly navigate to on demand.
     &lt;title>Moby-Dick&lt;/title>
   &lt;/head>
   &lt;body>
-    &lt;ul role="doc-toc">
-      &lt;li>&lt;a href="html/cover.html" hidden>Cover&lt;/a>&lt;/li>
-      &lt;li>&lt;a href="html/titlepage.html">Moby-Dick&lt;/a>&lt;/li>
-      &lt;li>&lt;a href="html/epigraph.html" hidden>EXTRACTS (Supplied by a Sub-Sub-Librarian)&lt;/a>.&lt;/li>
-      &lt;li>&lt;a href="html/chapter_001.html>Chapter 1. Loomings.&lt;/a>&lt;/li>
-      ...
-    &lt;/ul>
+    &lt;nav role="doc-toc">
+      &lt;ul>
+        &lt;li>&lt;a href="html/cover.html" hidden>Cover&lt;/a>&lt;/li>
+        &lt;li>&lt;a href="html/titlepage.html">Moby-Dick&lt;/a>&lt;/li>
+        &lt;li>&lt;a href="html/epigraph.html" hidden>EXTRACTS (Supplied by a Sub-Sub-Librarian)&lt;/a>.&lt;/li>
+        &lt;li>&lt;a href="html/chapter_001.html>Chapter 1. Loomings.&lt;/a>&lt;/li>
+        ...
+      &lt;/ul>
+    &lt;/nav>
   &lt;/body>
 &lt;/html>
 </pre>
 </div>
+
+# Compatibility with EPUB 3.0.1 # {#epub-compat}
+
+<em>This section is informative.</em>
+
+It is easily possible to turn a valid [[!EPUB301]] package
+into a WebBook, retaining full compatibility with [[!EPUB301]], using
+the following instructions:
+
+    1. modify the EPUB package so its <a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#sec-xhtml-nav">Navigation Document</a> [[!EPUB-CONTENTDOCS301]] is now:
+        1. named <code>index.xhtml</code>
+        2. placed inside the topmost directory of the package
+    2. update all links and references to extra resources inside the Navigation Document to reflect the new location of the file inside the package (if needed)
+    3. add the <code>role</code> attribute with value <code>doc-toc</code> to the <a href="http://www.idpf.org/epub/301/spec/epub-contentdocs.html#sec-xhtml-nav-def-types-toc"><code>toc nav</code></a> element of the Navigation Document
+    4. update the <a href="http://www.idpf.org/epub/301/spec/epub-publications.html#sec-item-elem">reference to the Navigation Document in the manifest of the Package Document</a> [[!EPUB-PUBLICATIONS301]] of the package to reflect the new location of the file inside the package (if needed)
+
+<div class='example'> <p>An example of Moby Dick packaged in conformance to both
+this specification and EPUB 3.0.1 can be found in the <a
+href="https://github.com/therealglazou/epub31review/tree/master/bs/samples">repository</a>
+for the current document.</p> </div>
+
 # Acknowledgements # {#acks}
 
 The author would like to thank the following individuals for their
